@@ -1,4 +1,4 @@
-package team.belloo.hamoneyserver
+package team.belloo.hamoney
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

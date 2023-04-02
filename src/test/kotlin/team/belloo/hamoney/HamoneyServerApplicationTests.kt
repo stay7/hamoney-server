@@ -1,4 +1,4 @@
-package team.belloo.hamoneyserver
+package team.belloo.hamoney
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
