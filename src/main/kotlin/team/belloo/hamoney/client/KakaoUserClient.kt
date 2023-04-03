@@ -21,7 +21,7 @@ interface KakaoUserClient {
     )
 
     data class KakaoAccount(
-        val has_email: String,
+        val has_email: Boolean,
         val email_needs_agreement: Boolean,
         val is_email_valid: Boolean,
         val is_email_verified: Boolean,

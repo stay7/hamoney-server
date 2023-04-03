@@ -30,7 +30,7 @@ interface KakaoTokenClient {
     fun token(
         @Field("grant_type") grantType: String = GRANT_TYPE,
         @Field("client_id") clientId: String = REST_API_KEY,
-        @Field("redirect_uri") redirectUri: String = REDIRECT_URI,
+        @Field("redirect_uri") redirectUri: String,
         @Field("code") code: String,
         @Field("client_secret") clientSecret: String = CLIENT_SECRET
     ): Call<TokenResponse>

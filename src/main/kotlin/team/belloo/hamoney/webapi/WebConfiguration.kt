@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import retrofit2.Retrofit
-import retrofit2.converter.jackson.JacksonConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import team.belloo.hamoney.client.GoogleTokenClient
 import team.belloo.hamoney.client.GoogleUserClient
 import team.belloo.hamoney.client.KakaoTokenClient
@@ -19,7 +19,7 @@ class WebConfiguration {
     ): GoogleTokenClient {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
-            .addConverterFactory(JacksonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(GoogleTokenClient::class.java)
     }
@@ -30,7 +30,7 @@ class WebConfiguration {
     ): GoogleUserClient {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
-            .addConverterFactory(JacksonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(GoogleUserClient::class.java)
     }
@@ -41,7 +41,7 @@ class WebConfiguration {
     ): KakaoTokenClient {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
-            .addConverterFactory(JacksonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(KakaoTokenClient::class.java)
     }
@@ -52,7 +52,7 @@ class WebConfiguration {
     ): KakaoUserClient {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
-            .addConverterFactory(JacksonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(KakaoUserClient::class.java)
     }
