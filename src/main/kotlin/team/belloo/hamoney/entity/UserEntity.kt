@@ -3,6 +3,8 @@ package team.belloo.hamoney.entity
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EntityListeners
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
 import jakarta.persistence.Temporal
@@ -15,11 +17,11 @@ import java.time.Instant
 @EntityListeners(AuditingEntityListener::class)
 class UserEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false, nullable = false)
     var id: Long = 0
 
-    @Id
-    @Column(updatable = false, nullable = false)
+    @Column(updatable = false, nullable = false, unique = true)
     var uuid: String = ""
 
     @Column(unique = true)
@@ -38,4 +40,8 @@ class UserEntity {
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     var updatedAt: Instant = Instant.now()
+
+    enum class Status(val value: Int) {
+        ACTIVE(0);
+    }
 }
