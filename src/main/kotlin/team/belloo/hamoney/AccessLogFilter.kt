@@ -61,7 +61,11 @@ class AccessLogFilter(
         response: ContentCachingResponseWrapper,
         exception: Exception?
     ): AccessLog {
-        val requestJsonNode = objectMapper.readTree(request.contentAsByteArray)
+        val requestJson = request.takeIf {
+            it.contentType == MediaType.APPLICATION_JSON_VALUE
+        }?.contentAsByteArray?.let {
+            objectMapper.readTree(it)
+        }
         val responseJsonNode = if (
             response.contentType != null
             && MediaType.parseMediaType(response.contentType).isCompatibleWith(MediaType.APPLICATION_JSON)
@@ -73,7 +77,7 @@ class AccessLogFilter(
         return AccessLog(
             httpStatus = response.status,
             url = request.requestURI,
-            requestBody = requestJsonNode.toString(),
+            requestBody = requestJson.toString(),
             requestTime = dateTimeFormatter.format(startTime),
             parameters = objectMapper.writeValueAsString(request.parameterMap),
             elapsedTime = "${Duration.between(startTime, endTime).toMillis()}ms",
