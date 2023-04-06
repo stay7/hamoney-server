@@ -32,8 +32,7 @@ class GetKakaoUser(
             id = kakaoResult.id,
             email = kakaoResult.kakao_account.email,
             hasEmail = kakaoResult.kakao_account.has_email,
-            isEmailValid = kakaoResult.kakao_account.is_email_valid,
-            isEmailVerified = kakaoResult.kakao_account.is_email_verified
+            verifiedEmail = kakaoResult.kakao_account.is_email_valid && kakaoResult.kakao_account.is_email_verified,
         )
     }
 
@@ -41,7 +40,6 @@ class GetKakaoUser(
         val id: Long,
         val email: String,
         val hasEmail: Boolean,
-        val isEmailValid: Boolean,
-        val isEmailVerified: Boolean
+        val verifiedEmail: Boolean
     )
 }
