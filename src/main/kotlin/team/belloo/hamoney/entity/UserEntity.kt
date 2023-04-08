@@ -35,6 +35,10 @@ class UserEntity {
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
+    var signedAt: Instant? = null
+
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
     var createdAt: Instant = Instant.now()
 
     @Column

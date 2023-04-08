@@ -12,7 +12,7 @@ import team.belloo.hamoney.domain.signup.SignupCommand
 import team.belloo.hamoney.domain.signup.SocialProvider
 
 @Controller
-@RequestMapping("/oauth")
+@RequestMapping("/social")
 class SocialSignupController(
     private val getKakaoUser: GetKakaoUser,
     private val getGoogleUser: GetGoogleUser,
