@@ -9,7 +9,7 @@ interface SignupStrategy {
     operator fun invoke(command: SignupCommand): UserEntity
 
     enum class Type {
-        NEW_USER, EXISTED_USER, RETRY
+        NEW_USER, EXISTED_USER, RETRY, CONNECT_SOCIAL
     }
 
     data class SignupCommand(

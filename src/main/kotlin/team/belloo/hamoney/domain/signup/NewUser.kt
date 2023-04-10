@@ -8,7 +8,7 @@ import team.belloo.hamoney.persistence.UserRepository
 import java.util.UUID
 
 @UseCase
-class CreateUser(
+class NewUser(
     private val userRepository: UserRepository,
     private val socialSignupRepository: SocialSignupRepository
 ) : SignupStrategy {

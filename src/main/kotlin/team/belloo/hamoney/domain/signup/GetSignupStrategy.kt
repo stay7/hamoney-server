@@ -42,7 +42,9 @@ class GetSignupStrategy(
                     socialSignupEntity = null
                 )
 
-            user != null && socialSignupHistory == null -> TODO("다른 social로 가입한 유저")
+            user != null && socialSignupHistory == null -> strategyByType.getValue(SignupStrategy.Type.CONNECT_SOCIAL) to signupCommand.copy(
+                userEntity = user
+            )
             user != null && socialSignupHistory != null -> {
                 if (socialSignupHistory.completedAt != null) strategyByType.getValue(SignupStrategy.Type.EXISTED_USER) to signupCommand.copy(
                     userEntity = user,

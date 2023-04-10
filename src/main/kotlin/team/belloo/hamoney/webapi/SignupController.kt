@@ -5,11 +5,12 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import team.belloo.hamoney.persistence.SocialSignupRepository
 import team.belloo.hamoney.persistence.UserRepository
-import java.time.Instant
+import java.time.Clock
 
 @RestController
 @RequestMapping("/signup")
 class SignupController(
+    private val clock: Clock,
     private val userRepository: UserRepository,
     private val socialSignupRepository: SocialSignupRepository
 ) {
@@ -22,7 +23,7 @@ class SignupController(
         val user = userRepository.findByEmail(form.email) ?: return JsonResult.error()
         val socialSignupEntity = socialSignupRepository.findByEmail(form.email) ?: return JsonResult.error()
 
-        val now = Instant.now()
+        val now = clock.instant()
         user.apply {
             nickname = form.nickname
             signedAt = now
