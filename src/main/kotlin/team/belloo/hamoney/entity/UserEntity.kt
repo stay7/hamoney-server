@@ -48,4 +48,32 @@ class UserEntity {
     enum class Status(val value: Int) {
         ACTIVE(0);
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as UserEntity
+
+        if (id != other.id) return false
+        if (uuid != other.uuid) return false
+        if (email != other.email) return false
+        if (nickname != other.nickname) return false
+        if (status != other.status) return false
+        if (signedAt != other.signedAt) return false
+        if (createdAt != other.createdAt) return false
+        return updatedAt == other.updatedAt
+    }
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + uuid.hashCode()
+        result = 31 * result + email.hashCode()
+        result = 31 * result + nickname.hashCode()
+        result = 31 * result + status
+        result = 31 * result + (signedAt?.hashCode() ?: 0)
+        result = 31 * result + createdAt.hashCode()
+        result = 31 * result + updatedAt.hashCode()
+        return result
+    }
 }

@@ -30,6 +30,7 @@ class CreateUser(
 
         SocialSignupEntity().apply {
             userId = user.id
+            email = command.email
             providerKey = providerKey(command.provider, command.providerId)
         }.let {
             socialSignupRepository.save(it)
