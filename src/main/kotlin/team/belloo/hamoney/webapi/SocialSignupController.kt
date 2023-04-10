@@ -6,9 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import team.belloo.hamoney.domain.GetGoogleUser
 import team.belloo.hamoney.domain.GetKakaoUser
-import team.belloo.hamoney.domain.signup.ExistedUser
-import team.belloo.hamoney.domain.signup.Signup
-import team.belloo.hamoney.domain.signup.SignupCommand
+import team.belloo.hamoney.domain.signup.GetSignupStrategy
 import team.belloo.hamoney.domain.signup.SocialProvider
 
 @Controller
@@ -16,8 +14,7 @@ import team.belloo.hamoney.domain.signup.SocialProvider
 class SocialSignupController(
     private val getKakaoUser: GetKakaoUser,
     private val getGoogleUser: GetGoogleUser,
-    private val signup: Signup,
-    private val existedUser: ExistedUser
+    private val getSignupStrategy: GetSignupStrategy,
 ) {
 
     @GetMapping("/kakao/code")
@@ -27,9 +24,9 @@ class SocialSignupController(
     ): String {
         return with(getKakaoUser(code, state)) {
             require(this.hasEmail && this.verifiedEmail) { "카카오 이메일이 없거나 인증되지 않았습니다" }
-            SignupCommand(email, SocialProvider.KAKAO, id.toString())
-        }.let {
-            existedUser(it) ?: signup(it)
+            getSignupStrategy(this.email, SocialProvider.KAKAO, this.id.toString())
+        }.let { (strategy, command) ->
+            strategy(command)
         }.let { user ->
             "redirect:hamoney://success?email=${user.email}"
         }
@@ -42,9 +39,9 @@ class SocialSignupController(
     ): String {
         return with(getGoogleUser(code, state)) {
             require(this.verifiedEmail) { "구글 이메일이 없거나 인증되지 않았습니다" }
-            SignupCommand(email, SocialProvider.GOOGLE, id)
-        }.let {
-            existedUser(it) ?: signup(it)
+            getSignupStrategy(this.email, SocialProvider.GOOGLE, this.id)
+        }.let { (strategy, command) ->
+            strategy(command)
         }.let { user ->
             "redirect:hamoney://success?email=${user.email}"
         }

@@ -9,12 +9,13 @@ import team.belloo.hamoney.persistence.UserRepository
 class ExistedUser(
     private val userRepository: UserRepository,
     private val socialSignupRepository: SocialSignupRepository
-) {
-    operator fun invoke(signupCommand: SignupCommand): UserEntity? {
-        return socialSignupRepository.findByProviderKey(signupCommand.providerKey())?.let {
-            userRepository.findById(it.userId).get()
-        }
-    }
+) : SignupStrategy {
+    override val type: SignupStrategy.Type
+        get() = SignupStrategy.Type.EXISTED_USER
 
-    private fun SignupCommand.providerKey() = "${provider.value}_${providerId}"
+    override operator fun invoke(signupCommand: SignupStrategy.SignupCommand): UserEntity {
+        require(signupCommand.socialSignupEntity != null && signupCommand.userEntity != null)
+
+        return signupCommand.userEntity
+    }
 }
