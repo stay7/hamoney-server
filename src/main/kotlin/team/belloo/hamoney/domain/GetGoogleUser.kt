@@ -11,7 +11,7 @@ class GetGoogleUser(
 ) {
     operator fun invoke(code: String, state: String): GoogleUser {
         val tokenResponse =
-            googleTokenClient.token(code = code, redirectUri = "http://10.0.2.2:8080/oauth/google/code")
+            googleTokenClient.token(code = code, redirectUri = "http://10.0.2.2:8080/social/google/code")
                 .execute().let { response ->
                     if (!response.isSuccessful) {
                         throw IllegalStateException(response.errorBody()?.string())

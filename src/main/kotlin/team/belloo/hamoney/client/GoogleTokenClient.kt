@@ -10,7 +10,7 @@ interface GoogleTokenClient {
     companion object {
         private const val CLIENT_ID = "909621199681-voruk7in7eaiu8i2fpus2lf9gcrclfoj.apps.googleusercontent.com"
         private const val CLIENT_SECRET = "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"
-        private const val REDIRECT_URI = "/oauth/google/code"
+        private const val REDIRECT_URI = "/social/google/code"
         private const val GRANT_TYPE = "authorization_code"
     }
 

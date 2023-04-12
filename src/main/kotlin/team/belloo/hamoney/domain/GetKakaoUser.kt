@@ -13,7 +13,7 @@ class GetKakaoUser(
         if (state != "hamoney") throw IllegalArgumentException("state not matched. $state")
 
         val tokenResponse =
-            kakaoTokenClient.token(code = code, redirectUri = "http://10.0.2.2:8080/oauth/kakao/code").execute()
+            kakaoTokenClient.token(code = code, redirectUri = "http://10.0.2.2:8080/social/kakao/code").execute()
                 .let { response ->
                     if (!response.isSuccessful) {
                         throw IllegalStateException(response.errorBody()?.string())

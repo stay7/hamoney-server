@@ -5,8 +5,8 @@ open class JsonResult(
     open val message: String? = null
 ) {
     companion object {
-        fun success() = JsonResult(status = Status.SUCCESS)
-        fun error() = JsonResult(status = Status.ERROR)
+        fun success(message: String? = null) = JsonResult(status = Status.SUCCESS, message = message)
+        fun error(message: String? = null) = JsonResult(status = Status.ERROR, message = message)
     }
 
     enum class Status(val code: Int) {
