@@ -3,6 +3,7 @@ package team.belloo.hamoney.webapi
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import team.belloo.hamoney.domain.oauth.IssueOAuthToken
 import team.belloo.hamoney.domain.signup.SignupTokenEncoder
 import team.belloo.hamoney.persistence.SocialSignupRepository
 import team.belloo.hamoney.persistence.UserRepository
@@ -13,7 +14,8 @@ import java.time.Clock
 class SignupController(
     private val clock: Clock,
     private val userRepository: UserRepository,
-    private val socialSignupRepository: SocialSignupRepository
+    private val socialSignupRepository: SocialSignupRepository,
+    private val issueOAuthToken: IssueOAuthToken
 ) {
 
     @PostMapping
@@ -41,12 +43,14 @@ class SignupController(
             socialSignupRepository.save(it)
         }
 
+        val (accessToken, refreshToken) = issueOAuthToken.invoke(user)
+
         return SignupResult(
             id = user.uuid,
             email = user.email,
             nickname = user.nickname,
-            accessToken = "",
-            refreshToken = ""
+            accessToken = accessToken,
+            refreshToken = refreshToken
         )
     }
 
