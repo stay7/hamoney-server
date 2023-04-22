@@ -4,15 +4,18 @@ import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EntityListeners
 import jakarta.persistence.Id
+import jakarta.persistence.IdClass
 import jakarta.persistence.Index
 import jakarta.persistence.Table
 import jakarta.persistence.Temporal
 import jakarta.persistence.TemporalType
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
+import java.io.Serializable
 import java.time.Instant
 
 @Entity
-@Table(name = "member", indexes = [Index(name = "account_book_id", columnList = "account_book_id")])
+@Table(name = "member", indexes = [Index(name = "member_idx_account_book_id", columnList = "account_book_id")])
+@IdClass(MemberEntity.PK::class)
 @EntityListeners(AuditingEntityListener::class)
 class MemberEntity {
 
@@ -21,7 +24,7 @@ class MemberEntity {
     var userId: Long = 0
 
     @Id
-    @Column(nullable = false)
+    @Column(nullable = false, name = "account_book_id")
     var accountBookId: Long = 0
 
     @Column
@@ -31,7 +34,7 @@ class MemberEntity {
     data class PK(
         val userId: Long,
         val accountBookId: Long
-    )
+    ) : Serializable
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
