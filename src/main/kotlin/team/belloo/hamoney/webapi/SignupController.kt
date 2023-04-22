@@ -1,6 +1,7 @@
 package team.belloo.hamoney.webapi
 
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import team.belloo.hamoney.domain.oauth.IssueOAuthToken
@@ -19,15 +20,17 @@ class SignupController(
 ) {
 
     @PostMapping
-    fun signup(form: SignupForm): JsonResult {
+    fun signup(
+        @RequestBody form: SignupForm
+    ): JsonResult {
         require(form.email.isNotBlank()) { "email could not blank. email=${form.email}" }
         require(form.nickname.isNotBlank()) { "nickname could not blank. nickname=${form.nickname}" }
 
         if (form.token != SignupTokenEncoder.encode(form.email))
             return JsonResult.error()
 
-        val user = userRepository.findByEmail(form.email) ?: return JsonResult.error()
-        val socialSignupEntity = socialSignupRepository.findByEmail(form.email) ?: return JsonResult.error()
+        val user = userRepository.findByEmail(form.email) ?: return JsonResult.error("empty user")
+        val socialSignupEntity = socialSignupRepository.findByEmail(form.email) ?: return JsonResult.error("empty social signup")
 
         val now = clock.instant()
         user.apply {

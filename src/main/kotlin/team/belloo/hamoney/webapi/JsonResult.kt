@@ -1,5 +1,9 @@
 package team.belloo.hamoney.webapi
 
+import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonValue
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 open class JsonResult(
     open val status: Status,
     open val message: String? = null
@@ -9,7 +13,10 @@ open class JsonResult(
         fun error(message: String? = null) = JsonResult(status = Status.ERROR, message = message)
     }
 
-    enum class Status(val code: Int) {
-        SUCCESS(0), ERROR(-500)
+    data class Status(@JsonValue val code: Int) {
+        companion object {
+            val SUCCESS = Status(0)
+            val ERROR = Status(-500)
+        }
     }
 }

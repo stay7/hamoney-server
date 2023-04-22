@@ -50,9 +50,9 @@ class SocialSignupController(
 
         return when (strategyType) {
             SignupStrategy.Type.NEW_USER, SignupStrategy.Type.RETRY ->
-                "redirect:hamoney://success?email=${email}token=${token}"
+                "redirect:hamoney://success?email=${email}?token=${token}"
             SignupStrategy.Type.EXISTED_USER, SignupStrategy.Type.CONNECT_SOCIAL ->
-                "redirect:hamoney://existed?email=${email}token${token}"
+                "redirect:hamoney://existed?email=${email}?token=${token}"
         }
     }
 }
