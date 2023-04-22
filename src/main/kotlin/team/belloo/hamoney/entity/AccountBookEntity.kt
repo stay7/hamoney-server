@@ -11,6 +11,7 @@ import jakarta.persistence.Table
 import jakarta.persistence.Temporal
 import jakarta.persistence.TemporalType
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
+import java.time.Instant
 
 @Entity
 @Table(name = "account_book")
@@ -26,11 +27,11 @@ class AccountBookEntity {
 
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    var createdAt: Long = 0
+    var createdAt: Instant = Instant.now()
 
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    var updatedAt: Long = 0
+    var updatedAt: Instant = Instant.now()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
