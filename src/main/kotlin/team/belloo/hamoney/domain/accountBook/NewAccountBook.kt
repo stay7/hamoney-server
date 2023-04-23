@@ -1,6 +1,7 @@
 package team.belloo.hamoney.domain.accountBook
 
 import team.belloo.hamoney.UseCase
+import team.belloo.hamoney.domain.category.Category
 import team.belloo.hamoney.entity.AccountBookEntity
 import team.belloo.hamoney.entity.CategoryEntity
 import team.belloo.hamoney.entity.MemberEntity
@@ -13,8 +14,7 @@ import team.belloo.hamoney.persistence.MemberRepository
 class NewAccountBook(
     private val accountBookRepository: AccountBookRepository,
     private val memberRepository: MemberRepository,
-    private val categoryRepository: CategoryRepository,
-    private val defaultCategoryNames: List<String>
+    private val categoryRepository: CategoryRepository
 ) {
     operator fun invoke(
         user: UserEntity,
@@ -32,10 +32,11 @@ class NewAccountBook(
             memberRepository.save(it)
         }
 
-        defaultCategoryNames.map {
+        Category.defaultCategories().map {
             CategoryEntity().apply {
                 accountBookId = newAccountBook.id
-                name = it
+                name = it.name
+                iconId = it.iconId
             }
         }.also {
             categoryRepository.saveAll(it)

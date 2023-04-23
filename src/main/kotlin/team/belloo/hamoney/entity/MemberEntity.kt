@@ -32,8 +32,8 @@ class MemberEntity {
     var joinedAt: Instant = Instant.now()
 
     data class PK(
-        val userId: Long,
-        val accountBookId: Long
+        val userId: Long = 0,
+        val accountBookId: Long = 0
     ) : Serializable
 
     override fun equals(other: Any?): Boolean {
