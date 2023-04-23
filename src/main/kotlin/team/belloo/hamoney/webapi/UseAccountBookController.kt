@@ -3,12 +3,14 @@ package team.belloo.hamoney.webapi
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import team.belloo.hamoney.Authentication
 import team.belloo.hamoney.domain.accountBook.NewAccountBook
 import team.belloo.hamoney.entity.UserEntity
 import team.belloo.hamoney.persistence.CategoryRepository
 
 @RestController
 @RequestMapping("/use/account_book")
+@Authentication
 class UseAccountBookController(
     private val newAccountBook: NewAccountBook,
     private val categoryRepository: CategoryRepository
