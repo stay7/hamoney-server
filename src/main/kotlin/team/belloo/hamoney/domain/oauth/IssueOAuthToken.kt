@@ -39,6 +39,8 @@ class IssueOAuthToken(
             refreshTokenRepository.save(it)
         }
 
+        // TODO: 새로 발급한 토큰을 제외하고 기존 토큰들을 삭제해야함
+
         return accessToken to refreshToken
     }
 }

@@ -29,7 +29,7 @@ class RefreshTokenEntity {
     var token: String = ""
 
     @Column(nullable = false)
-    var status: String = "active"
+    var status: String = Status.ACTIVE.value
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
@@ -38,6 +38,10 @@ class RefreshTokenEntity {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     var expiredAt: Instant = Instant.now().plus(Duration.ofDays(28))
+
+    enum class Status(val value: String) {
+        ACTIVE("active"), INACTIVE("inactive")
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

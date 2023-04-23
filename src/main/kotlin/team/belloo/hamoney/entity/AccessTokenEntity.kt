@@ -37,7 +37,7 @@ class AccessTokenEntity {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    var expiredAt: Instant = Instant.now().plus(Duration.ofDays(7))
+    var expiredAt: Instant = Instant.now().plus(Duration.ofMinutes(1))
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
