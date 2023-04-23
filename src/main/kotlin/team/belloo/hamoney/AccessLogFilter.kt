@@ -77,6 +77,7 @@ class AccessLogFilter(
         return AccessLog(
             httpStatus = response.status,
             url = request.requestURI,
+            authorization = request.getHeader(HamoneyAttribute.AUTHORIZATION),
             requestBody = requestJson.toString(),
             requestTime = dateTimeFormatter.format(startTime),
             parameters = objectMapper.writeValueAsString(request.parameterMap),
@@ -90,6 +91,7 @@ class AccessLogFilter(
 data class AccessLog(
     val httpStatus: Int,
     val url: String,
+    val authorization: String? = null,
     val requestBody: String? = null,
     val requestTime: String,
     val elapsedTime: String,
