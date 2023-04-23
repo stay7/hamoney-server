@@ -17,7 +17,4 @@ class AppConfiguration {
     @Bean
     fun dateTimeFormatter(): DateTimeFormatter =
         DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss.SSS").withZone(ZoneId.of("Asia/Seoul"))
-
-    @Bean
-    fun defaultCategoryNames(): List<String> = listOf("식재료", "외식", "커피", "교통비", "생활비", "문화생활", "미분류")
 }

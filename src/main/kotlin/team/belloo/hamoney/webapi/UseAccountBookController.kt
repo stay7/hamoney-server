@@ -25,7 +25,8 @@ class UseAccountBookController(
         return categoryRepository.findAllByAccountBookId(accountBookId = accountBook.id).map {
             CategoryView(
                 id = it.id,
-                name = it.name
+                name = it.name,
+                iconid = it.iconId
             )
         }.let {
             AccountBookView(
@@ -51,6 +52,7 @@ class UseAccountBookController(
 
     data class CategoryView(
         val id: Long,
-        val name: String
+        val name: String,
+        val iconid: String
     )
 }
