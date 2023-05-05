@@ -8,7 +8,7 @@ import team.belloo.hamoney.domain.accountBook.NewAccountBook
 import team.belloo.hamoney.domain.category.Category
 import team.belloo.hamoney.domain.category.FindCategory
 import team.belloo.hamoney.domain.category.SubCategory
-import team.belloo.hamoney.entity.UserEntity
+import team.belloo.hamoney.entity.user.UserEntity
 import team.belloo.hamoney.persistence.MemberRepository
 
 @RestController

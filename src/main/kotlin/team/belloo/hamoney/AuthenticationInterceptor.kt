@@ -8,7 +8,7 @@ import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
 import org.springframework.web.method.HandlerMethod
 import org.springframework.web.servlet.HandlerInterceptor
-import team.belloo.hamoney.entity.UserEntity
+import team.belloo.hamoney.entity.user.UserEntity
 import team.belloo.hamoney.persistence.AccessTokenRepository
 import team.belloo.hamoney.persistence.UserRepository
 import team.belloo.hamoney.webapi.JsonResult

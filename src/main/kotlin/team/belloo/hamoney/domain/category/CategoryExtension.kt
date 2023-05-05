@@ -1,7 +1,7 @@
 package team.belloo.hamoney.domain.category
 
-import team.belloo.hamoney.entity.CategoryEntity
-import team.belloo.hamoney.entity.SubCategoryEntity
+import team.belloo.hamoney.entity.accountbook.CategoryEntity
+import team.belloo.hamoney.entity.accountbook.SubCategoryEntity
 
 internal fun SubCategoryEntity.toDomain() = SubCategory(
     id = id,

@@ -1,7 +1,7 @@
 package team.belloo.hamoney.domain.signup
 
-import team.belloo.hamoney.entity.SocialSignupEntity
-import team.belloo.hamoney.entity.UserEntity
+import team.belloo.hamoney.entity.signup.SocialSignupEntity
+import team.belloo.hamoney.entity.user.UserEntity
 
 interface SignupStrategy {
     val type: Type

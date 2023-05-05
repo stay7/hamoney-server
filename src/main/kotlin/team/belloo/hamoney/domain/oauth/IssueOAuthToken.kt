@@ -1,9 +1,9 @@
 package team.belloo.hamoney.domain.oauth
 
 import team.belloo.hamoney.UseCase
-import team.belloo.hamoney.entity.AccessTokenEntity
-import team.belloo.hamoney.entity.RefreshTokenEntity
-import team.belloo.hamoney.entity.UserEntity
+import team.belloo.hamoney.entity.oauth.AccessTokenEntity
+import team.belloo.hamoney.entity.oauth.RefreshTokenEntity
+import team.belloo.hamoney.entity.user.UserEntity
 import team.belloo.hamoney.persistence.AccessTokenRepository
 import team.belloo.hamoney.persistence.RefreshTokenRepository
 import java.time.Clock
