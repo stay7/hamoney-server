@@ -1,4 +1,4 @@
-package team.belloo.hamoney.entity
+package team.belloo.hamoney.entity.accountbook
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -10,54 +10,56 @@ import jakarta.persistence.Table
 import jakarta.persistence.Temporal
 import jakarta.persistence.TemporalType
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
-import java.time.Duration
 import java.time.Instant
 
 @Entity
-@Table(name = "access_token")
+@Table(name = "sub_category")
 @EntityListeners(AuditingEntityListener::class)
-class AccessTokenEntity {
+class SubCategoryEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, updatable = false)
+    @Column(updatable = false, nullable = false)
     var id: Long = 0
 
     @Column(nullable = false)
-    var userId: Long = 0
-
-    @Column(nullable = false, unique = true)
-    var token: String = ""
+    var categoryId: Long = 0
 
     @Column(nullable = false)
-    var status: String = "active"
+    var name: String = ""
 
+    @Column(nullable = false)
+    var iconId: Int = 0
+
+    @Column
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
     var createdAt: Instant = Instant.now()
 
+    @Column
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
-    var expiredAt: Instant = Instant.now().plus(Duration.ofMinutes(1))
+    var updatedAt: Instant = Instant.now()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as AccessTokenEntity
+        other as SubCategoryEntity
 
         if (id != other.id) return false
-        if (userId != other.userId) return false
-        if (token != other.token) return false
+        if (categoryId != other.categoryId) return false
+        if (name != other.name) return false
+        if (iconId != other.iconId) return false
         if (createdAt != other.createdAt) return false
-        return expiredAt == other.expiredAt
+        return updatedAt == other.updatedAt
     }
 
     override fun hashCode(): Int {
         var result = id.hashCode()
-        result = 31 * result + userId.hashCode()
-        result = 31 * result + token.hashCode()
+        result = 31 * result + categoryId.hashCode()
+        result = 31 * result + name.hashCode()
+        result = 31 * result + iconId
         result = 31 * result + createdAt.hashCode()
-        result = 31 * result + expiredAt.hashCode()
+        result = 31 * result + updatedAt.hashCode()
         return result
     }
 }

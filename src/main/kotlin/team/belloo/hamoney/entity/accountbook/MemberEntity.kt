@@ -1,4 +1,4 @@
-package team.belloo.hamoney.entity
+package team.belloo.hamoney.entity.accountbook
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity

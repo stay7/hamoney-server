@@ -1,4 +1,4 @@
-package team.belloo.hamoney.entity
+package team.belloo.hamoney.entity.signup
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -6,60 +6,62 @@ import jakarta.persistence.EntityListeners
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jakarta.persistence.Index
 import jakarta.persistence.Table
 import jakarta.persistence.Temporal
 import jakarta.persistence.TemporalType
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
+import team.belloo.hamoney.domain.signup.SocialProvider
 import java.time.Instant
 
 @Entity
-@Table(name = "sub_category")
+@Table(name = "social_signup", indexes = [Index(name = "idx_user_id", columnList = "userId")])
 @EntityListeners(AuditingEntityListener::class)
-class SubCategoryEntity {
-
+class SocialSignupEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable = false, nullable = false)
+    @Column(nullable = false, updatable = false)
     var id: Long = 0
 
     @Column(nullable = false)
-    var categoryId: Long = 0
+    var userId: Long = 0
 
     @Column(nullable = false)
-    var name: String = ""
+    var email: String = ""
 
-    @Column(nullable = false)
-    var iconId: Int = 0
+    @Column(nullable = false, unique = true)
+    var providerKey: String = "" // kakao_1234
 
-    @Column
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false, updatable = false)
     var createdAt: Instant = Instant.now()
 
-    @Column
     @Temporal(TemporalType.TIMESTAMP)
-    var updatedAt: Instant = Instant.now()
+    @Column(nullable = true)
+    var completedAt: Instant? = null
 
+    fun providerKey(provider: SocialProvider, providerId: String) = "${provider.value}_${providerId}"
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as SubCategoryEntity
+        other as SocialSignupEntity
 
         if (id != other.id) return false
-        if (categoryId != other.categoryId) return false
-        if (name != other.name) return false
-        if (iconId != other.iconId) return false
+        if (userId != other.userId) return false
+        if (email != other.email) return false
+        if (providerKey != other.providerKey) return false
         if (createdAt != other.createdAt) return false
-        return updatedAt == other.updatedAt
+        return completedAt == other.completedAt
     }
 
     override fun hashCode(): Int {
         var result = id.hashCode()
-        result = 31 * result + categoryId.hashCode()
-        result = 31 * result + name.hashCode()
-        result = 31 * result + iconId
+        result = 31 * result + userId.hashCode()
+        result = 31 * result + email.hashCode()
+        result = 31 * result + providerKey.hashCode()
         result = 31 * result + createdAt.hashCode()
-        result = 31 * result + updatedAt.hashCode()
+        result = 31 * result + (completedAt?.hashCode() ?: 0)
         return result
     }
 }

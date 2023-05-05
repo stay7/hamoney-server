@@ -2,9 +2,9 @@ package team.belloo.hamoney.domain.accountBook
 
 import team.belloo.hamoney.UseCase
 import team.belloo.hamoney.domain.category.InitDefaultCategories
-import team.belloo.hamoney.entity.AccountBookEntity
-import team.belloo.hamoney.entity.MemberEntity
-import team.belloo.hamoney.entity.UserEntity
+import team.belloo.hamoney.entity.accountbook.AccountBookEntity
+import team.belloo.hamoney.entity.accountbook.MemberEntity
+import team.belloo.hamoney.entity.user.UserEntity
 import team.belloo.hamoney.persistence.AccountBookRepository
 import team.belloo.hamoney.persistence.MemberRepository
 

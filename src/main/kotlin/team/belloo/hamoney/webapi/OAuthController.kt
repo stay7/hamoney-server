@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import team.belloo.hamoney.domain.oauth.IssueOAuthToken
 import team.belloo.hamoney.domain.signup.SignupTokenEncoder
-import team.belloo.hamoney.entity.RefreshTokenEntity
+import team.belloo.hamoney.entity.oauth.RefreshTokenEntity
 import team.belloo.hamoney.persistence.RefreshTokenRepository
 import team.belloo.hamoney.persistence.UserRepository
 
