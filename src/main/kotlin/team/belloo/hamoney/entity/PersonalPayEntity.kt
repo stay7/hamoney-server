@@ -6,7 +6,6 @@ import jakarta.persistence.EntityListeners
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
-import jakarta.persistence.Index
 import jakarta.persistence.Table
 import jakarta.persistence.Temporal
 import jakarta.persistence.TemporalType
@@ -14,20 +13,22 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.Instant
 
 @Entity
-@Table(name = "category", indexes = [Index(name = "category_idx_account_book_id", columnList = "account_book_id")])
+@Table(name = "personal_payment")
 @EntityListeners(AuditingEntityListener::class)
-class CategoryEntity {
+class PersonalPayEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable = false, nullable = false)
     var id: Long = 0
 
-    @Column(nullable = false, name = "account_book_id")
-    var accountBookId: Long = 0
+    @Column(nullable = false)
+    var userId: Long = 0
 
-    @Column(updatable = false, nullable = false)
+    @Column(nullable = false)
     var name: String = ""
+
+    @Column(nullable = false)
+    var iconId: Int = 0
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
@@ -41,19 +42,21 @@ class CategoryEntity {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as CategoryEntity
+        other as PersonalPayEntity
 
         if (id != other.id) return false
-        if (accountBookId != other.accountBookId) return false
+        if (userId != other.userId) return false
         if (name != other.name) return false
+        if (iconId != other.iconId) return false
         if (createdAt != other.createdAt) return false
         return updatedAt == other.updatedAt
     }
 
     override fun hashCode(): Int {
         var result = id.hashCode()
-        result = 31 * result + accountBookId.hashCode()
+        result = 31 * result + userId.hashCode()
         result = 31 * result + name.hashCode()
+        result = 31 * result + iconId
         result = 31 * result + createdAt.hashCode()
         result = 31 * result + updatedAt.hashCode()
         return result

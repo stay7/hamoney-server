@@ -13,6 +13,7 @@ import team.belloo.hamoney.persistence.AccessTokenRepository
 import team.belloo.hamoney.persistence.UserRepository
 import team.belloo.hamoney.webapi.JsonResult
 import java.time.Clock
+import java.util.logging.Logger
 
 @Component
 class AuthenticateInterceptor(
@@ -21,6 +22,7 @@ class AuthenticateInterceptor(
     private val userRepository: UserRepository
 ) : HandlerInterceptor {
     private val objectMapper = jacksonObjectMapper()
+    private val logger = Logger.getLogger(AuthenticateInterceptor::class.java.name)
 
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
         if (passable(handler)) return true
