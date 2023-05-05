@@ -1,47 +1,65 @@
 package team.belloo.hamoney.domain.category
 
-object DefaultCategories {
+class DefaultCategories {
 
-    operator fun invoke(
-        accountBookId: Long
-    ): List<Category> {
-        return listOf(
-            Category(
-                id = 0,
-                accountBookId = accountBookId,
+    companion object {
+        val DEFAULTS = listOf(
+            DefaultCategory(
                 name = "음식",
-                subCategories = emptyList()
+                subCategories = listOf(
+                    DefaultSubCategory("집밥먹어요", 0),
+                    DefaultSubCategory("시켜먹어요", 0),
+                    DefaultSubCategory("외식해요", 0),
+                    DefaultSubCategory("카페가요", 0)
+                )
             ),
-            Category(
-                id = 0,
-                accountBookId = accountBookId,
+            DefaultCategory(
                 name = "생활",
-                subCategories = emptyList()
+                subCategories = listOf(
+                    DefaultSubCategory("주거비", 0),
+                    DefaultSubCategory("관리비", 0),
+                    DefaultSubCategory("공과금", 0),
+                    DefaultSubCategory("생활비", 0)
+                )
             ),
-            Category(
-                id = 0,
-                accountBookId = accountBookId,
+            DefaultCategory(
                 name = "교통",
-                subCategories = emptyList()
+                subCategories = listOf(
+                    DefaultSubCategory("BMW", 0),
+                    DefaultSubCategory("공공자전거", 0),
+                )
             ),
-            Category(
-                id = 0,
-                accountBookId = accountBookId,
+            DefaultCategory(
                 name = "문화",
-                subCategories = emptyList()
+                subCategories = listOf(
+                    DefaultSubCategory("배워요", 0),
+                    DefaultSubCategory("전시가요", 0),
+                )
             ),
-            Category(
-                id = 0,
-                accountBookId = accountBookId,
+            DefaultCategory(
                 name = "미래",
-                subCategories = emptyList()
+                subCategories = listOf(
+                    DefaultSubCategory("저금해요", 0),
+                    DefaultSubCategory("경조사비", 0),
+                )
             ),
-            Category(
-                id = 0,
-                accountBookId = accountBookId,
+            DefaultCategory(
                 name = "기타",
-                subCategories = emptyList()
+                subCategories = listOf(
+                    DefaultSubCategory("병원가요", 0),
+                    DefaultSubCategory("반려동물", 0),
+                )
             )
         )
     }
+
+    data class DefaultCategory(
+        val name: String,
+        val subCategories: List<DefaultSubCategory>
+    )
+
+    data class DefaultSubCategory(
+        val name: String,
+        val iconId: Int
+    )
 }
