@@ -28,6 +28,9 @@ class AccountBookPayEntity {
     var name: String = ""
 
     @Column
+    var iconId: Int = 0
+
+    @Column
     @Temporal(TemporalType.TIMESTAMP)
     var createdAt: Instant = Instant.now()
 
@@ -44,6 +47,7 @@ class AccountBookPayEntity {
         if (id != other.id) return false
         if (accountBookId != other.accountBookId) return false
         if (name != other.name) return false
+        if (iconId != other.iconId) return false
         if (createdAt != other.createdAt) return false
         return updatedAt == other.updatedAt
     }
@@ -52,6 +56,7 @@ class AccountBookPayEntity {
         var result = id.hashCode()
         result = 31 * result + accountBookId.hashCode()
         result = 31 * result + name.hashCode()
+        result = 31 * result + iconId
         result = 31 * result + createdAt.hashCode()
         result = 31 * result + updatedAt.hashCode()
         return result

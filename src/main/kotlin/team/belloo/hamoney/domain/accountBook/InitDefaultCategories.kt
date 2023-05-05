@@ -1,6 +1,7 @@
-package team.belloo.hamoney.domain.category
+package team.belloo.hamoney.domain.accountBook
 
 import team.belloo.hamoney.UseCase
+import team.belloo.hamoney.domain.category.DefaultCategories
 import team.belloo.hamoney.entity.accountbook.AccountBookEntity
 import team.belloo.hamoney.entity.accountbook.CategoryEntity
 import team.belloo.hamoney.entity.accountbook.SubCategoryEntity
