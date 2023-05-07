@@ -6,6 +6,7 @@ import jakarta.persistence.EntityListeners
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jakarta.persistence.Index
 import jakarta.persistence.Table
 import jakarta.persistence.Temporal
 import jakarta.persistence.TemporalType
@@ -13,7 +14,10 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.Instant
 
 @Entity
-@Table(name = "payment")
+@Table(
+    name = "account_book_pay",
+    indexes = [Index(name = "account_book_pay_idx_account_book_id", columnList = "account_book_id")]
+)
 @EntityListeners(AuditingEntityListener::class)
 class AccountBookPayEntity {
 
