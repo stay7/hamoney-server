@@ -27,8 +27,11 @@ class UserEntity {
     @Column(unique = true)
     var email: String = ""
 
-    @Column
+    @Column(unique = true)
     var nickname: String = ""
+
+    @Column
+    var profile: String = ""
 
     @Column
     var status: Int = 1

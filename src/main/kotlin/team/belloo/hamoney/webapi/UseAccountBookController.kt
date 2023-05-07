@@ -5,10 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import team.belloo.hamoney.Authentication
 import team.belloo.hamoney.domain.accountBook.NewAccountBook
-import team.belloo.hamoney.domain.category.Category
 import team.belloo.hamoney.domain.category.FindCategory
-import team.belloo.hamoney.domain.category.SubCategory
 import team.belloo.hamoney.entity.user.UserEntity
+import team.belloo.hamoney.persistence.AccountBookPayRepository
 import team.belloo.hamoney.persistence.MemberRepository
 
 @RestController
@@ -17,6 +16,7 @@ import team.belloo.hamoney.persistence.MemberRepository
 class UseAccountBookController(
     private val newAccountBook: NewAccountBook,
     private val memberRepository: MemberRepository,
+    private val accountBookPayRepository: AccountBookPayRepository,
     private val findCategory: FindCategory,
 ) {
 
@@ -29,52 +29,20 @@ class UseAccountBookController(
         }
 
         val accountBook = newAccountBook(user)
+        val paymentsView = accountBookPayRepository.findAllByAccountBookId(accountBook.id).map { it.toView() }
+        val categoriesView = findCategory.allByAccountBookId(accountBookId = accountBook.id).map { it.toView() }
 
-        return findCategory.allByAccountBookId(accountBookId = accountBook.id).map {
-            it.toView()
-        }.let {
-            AccountBookView(
-                id = accountBook.id,
-                name = accountBook.name,
-                categories = it,
-                createdAt = accountBook.createdAt.toEpochMilli()
-            )
-        }
+        return AccountBookView(
+            id = accountBook.id,
+            name = accountBook.name,
+            categories = categoriesView,
+            payments = paymentsView,
+            createdAt = accountBook.createdAt.toEpochMilli()
+        )
     }
 
     @GetMapping("/together")
     fun useTogether(): JsonResult {
         return JsonResult.success()
     }
-
-    data class AccountBookView(
-        val id: Long,
-        val name: String,
-        val categories: List<CategoryView>,
-        val createdAt: Long
-    ) : JsonResult(status = Status.SUCCESS)
-
-    data class CategoryView(
-        val id: Long,
-        val name: String,
-        val subCategories: List<SubCategoryView>
-    )
-
-    data class SubCategoryView(
-        val id: Long,
-        val name: String,
-        val iconId: Int
-    )
-
-    private fun Category.toView() = CategoryView(
-        id = id,
-        name = name,
-        subCategories = subCategories.map { it.toView() }
-    )
-
-    private fun SubCategory.toView() = SubCategoryView(
-        id = id,
-        name = name,
-        iconId = iconId
-    )
 }

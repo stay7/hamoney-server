@@ -6,6 +6,7 @@ import jakarta.persistence.EntityListeners
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jakarta.persistence.Index
 import jakarta.persistence.Table
 import jakarta.persistence.Temporal
 import jakarta.persistence.TemporalType
@@ -13,7 +14,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.Instant
 
 @Entity
-@Table(name = "personal_payment")
+@Table(name = "personal_pay", indexes = [Index(name = "personal_pay_idx_user_id", columnList = "user_id")])
 @EntityListeners(AuditingEntityListener::class)
 class PersonalPayEntity {
 
@@ -21,7 +22,7 @@ class PersonalPayEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "user_id")
     var userId: Long = 0
 
     @Column(nullable = false)

@@ -19,6 +19,8 @@ class SignupController(
     private val issueOAuthToken: IssueOAuthToken
 ) {
 
+    // 유저는 social login하면 생성된다.
+    // signup을 통해서 닉네임을 만든다
     @PostMapping
     fun signup(
         @RequestBody form: SignupForm
@@ -29,8 +31,13 @@ class SignupController(
         if (form.token != SignupTokenEncoder.encode(form.email))
             return JsonResult.error()
 
-        val user = userRepository.findByEmail(form.email) ?: return JsonResult.error("empty user")
-        val socialSignupEntity = socialSignupRepository.findByEmail(form.email) ?: return JsonResult.error("empty social signup")
+        userRepository.findByNickname(form.nickname)?.let {
+            return JsonResult.error("이미 존재하는 닉네임입니다")
+        }
+
+        val user = userRepository.findByEmail(form.email) ?: return JsonResult.error("이메일로 유저를 찾을 수 없네요")
+        val socialSignupEntity =
+            socialSignupRepository.findByEmail(form.email) ?: return JsonResult.error("empty social signup")
 
         val now = clock.instant()
         user.apply {
