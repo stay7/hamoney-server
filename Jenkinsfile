@@ -9,7 +9,7 @@ pipeline {
 
     stage('Build') {
       steps {
-        tool(name: 'gradle', type: 'BootJar')
+        sh './gradlew BootJar'
       }
     }
 
