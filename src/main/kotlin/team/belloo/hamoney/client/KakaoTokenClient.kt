@@ -9,14 +9,7 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface KakaoTokenClient {
-
-    @GET("/oauth/authorize")
-    fun authorize(
-        @Query("client_id") clientId: String = REST_API_KEY,
-        @Query("redirect_uri") redirectUri: String,
-        @Query("response_type") responseType: String = "code"
-    ): Call<ResponseBody>
-
+    
     companion object {
         private const val GRANT_TYPE = "authorization_code"
         private const val REST_API_KEY = "048ac415d2e9bb5724bcb08508658463"
