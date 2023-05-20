@@ -13,14 +13,13 @@ interface KakaoTokenClient {
     @GET("/oauth/authorize")
     fun authorize(
         @Query("client_id") clientId: String = REST_API_KEY,
-        @Query("redirect_uri") redirectUri: String = REDIRECT_URI,
+        @Query("redirect_uri") redirectUri: String,
         @Query("response_type") responseType: String = "code"
     ): Call<ResponseBody>
 
     companion object {
         private const val GRANT_TYPE = "authorization_code"
         private const val REST_API_KEY = "048ac415d2e9bb5724bcb08508658463"
-        private const val REDIRECT_URI = "/oauth/kakao/code"
         private const val CLIENT_SECRET = "vVx8pRu6fJEZa95PynZEf7xfUr5e0UrL"
         private const val ADMIN_KEY = "3b7c78c35f326355d8d00c20bcdd057f"
     }

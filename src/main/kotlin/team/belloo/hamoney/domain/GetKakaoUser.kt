@@ -1,19 +1,26 @@
 package team.belloo.hamoney.domain
 
-import team.belloo.hamoney.UseCase
+import org.slf4j.LoggerFactory
 import team.belloo.hamoney.client.KakaoTokenClient
 import team.belloo.hamoney.client.KakaoUserClient
 
-@UseCase
 class GetKakaoUser(
     private val kakaoTokenClient: KakaoTokenClient,
-    private val kakaoUserClient: KakaoUserClient
+    private val kakaoUserClient: KakaoUserClient,
+    baseUrl: String
 ) {
+    private val redirectUrl = "${baseUrl}/social/kakao/code"
+    private val logger = LoggerFactory.getLogger(javaClass)
+
+    init {
+        logger.info(redirectUrl)
+    }
+
     operator fun invoke(code: String, state: String): KakaoUser {
         if (state != "hamoney") throw IllegalArgumentException("state not matched. $state")
 
         val tokenResponse =
-            kakaoTokenClient.token(code = code, redirectUri = "http://10.0.2.2:8080/social/kakao/code").execute()
+            kakaoTokenClient.token(code = code, redirectUri = "${redirectUrl}/social/kakao/code").execute()
                 .let { response ->
                     if (!response.isSuccessful) {
                         throw IllegalStateException(response.errorBody()?.string())
