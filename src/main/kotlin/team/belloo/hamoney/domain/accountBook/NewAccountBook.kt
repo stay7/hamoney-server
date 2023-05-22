@@ -31,7 +31,7 @@ class NewAccountBook(
         }
 
         initDefaultCategories(InitDefaultCategories.Command(user, newAccountBook))
-        initDefaultPayments(InitDefaultPayments.Command(user, newAccountBook))
+        initDefaultPayments(InitDefaultPayments.Command(user.id, newAccountBook.id))
 
         return newAccountBook
     }

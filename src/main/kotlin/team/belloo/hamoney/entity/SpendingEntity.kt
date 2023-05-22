@@ -38,16 +38,11 @@ class SpendingEntity {
     @Column(nullable = true)
     var subCategoryId: Long? = null
 
-    // 공용, 개인, 쿠폰/포인트
-    @Column(nullable = false)
-    var payType: String = ""
-
-    // type이 공용이면 공용에서, 개인이면 개인에서 찾아야한다
     @Column(nullable = true)
     var payId: Long = 0
 
     @Column(nullable = true)
-    var memo: String? = null
+    var used: String? = null
 
     @Column(nullable = false)
     var skipSum: Boolean = false
@@ -72,9 +67,8 @@ class SpendingEntity {
         if (date != other.date) return false
         if (categoryId != other.categoryId) return false
         if (subCategoryId != other.subCategoryId) return false
-        if (payType != other.payType) return false
         if (payId != other.payId) return false
-        if (memo != other.memo) return false
+        if (used != other.used) return false
         if (skipSum != other.skipSum) return false
         if (createdAt != other.createdAt) return false
         return updatedAt == other.updatedAt
@@ -87,9 +81,8 @@ class SpendingEntity {
         result = 31 * result + date.hashCode()
         result = 31 * result + categoryId.hashCode()
         result = 31 * result + (subCategoryId?.hashCode() ?: 0)
-        result = 31 * result + payType.hashCode()
         result = 31 * result + payId.hashCode()
-        result = 31 * result + (memo?.hashCode() ?: 0)
+        result = 31 * result + (used?.hashCode() ?: 0)
         result = 31 * result + skipSum.hashCode()
         result = 31 * result + createdAt.hashCode()
         result = 31 * result + updatedAt.hashCode()

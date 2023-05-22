@@ -2,7 +2,7 @@ package team.belloo.hamoney.webapi
 
 import team.belloo.hamoney.domain.category.Category
 import team.belloo.hamoney.domain.category.SubCategory
-import team.belloo.hamoney.entity.accountbook.AccountBookPayEntity
+import team.belloo.hamoney.domain.pay.Pay
 
 data class AccountBookView(
     val id: Long,
@@ -42,7 +42,7 @@ internal fun SubCategory.toView() = SubCategoryView(
     iconId = iconId
 )
 
-internal fun AccountBookPayEntity.toView() = PayView(
+internal fun Pay.toView() = PayView(
     id = this@toView.id,
     name = this@toView.name,
     iconId = this@toView.iconId

@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import team.belloo.hamoney.Authentication
 import team.belloo.hamoney.domain.category.FindCategory
+import team.belloo.hamoney.domain.pay.PayRepository
 import team.belloo.hamoney.entity.user.UserEntity
-import team.belloo.hamoney.persistence.AccountBookPayRepository
 import team.belloo.hamoney.persistence.AccountBookRepository
 import team.belloo.hamoney.persistence.MemberRepository
 import team.belloo.hamoney.webapi.AccountBookView
@@ -19,7 +19,7 @@ import team.belloo.hamoney.webapi.toView
 @Authentication
 class GetAccountBookController(
     private val accountBookRepository: AccountBookRepository,
-    private val accountBookPayRepository: AccountBookPayRepository,
+    private val payRepository: PayRepository,
     private val memberRepository: MemberRepository,
     private val findCategory: FindCategory,
 ) {
@@ -33,14 +33,14 @@ class GetAccountBookController(
             return JsonResult.error("가계부에 권한이 없습니다.")
 
         val accountBook = accountBookRepository.findById(accountBookId).get()
-        val paymentsView = accountBookPayRepository.findAllByAccountBookId(accountBook.id).map { it.toView() }
-        val categoriesView = findCategory.allByAccountBookId(accountBookId = accountBook.id).map { it.toView() }
+        val sharedPays = payRepository.findAllSharedById(accountBookId)
+        val categories = findCategory.allByAccountBookId(accountBookId = accountBook.id)
 
         return AccountBookView(
             id = accountBook.id,
             name = accountBook.name,
-            categories = categoriesView,
-            payments = paymentsView,
+            categories = categories.map { it.toView() },
+            payments = sharedPays.map { it.toView() },
             createdAt = accountBook.createdAt.toEpochMilli()
         )
     }

@@ -1,38 +1,35 @@
 package team.belloo.hamoney.domain.accountBook
 
 import team.belloo.hamoney.UseCase
-import team.belloo.hamoney.entity.accountbook.AccountBookEntity
-import team.belloo.hamoney.entity.accountbook.AccountBookPayEntity
-import team.belloo.hamoney.entity.user.PersonalPayEntity
-import team.belloo.hamoney.entity.user.UserEntity
-import team.belloo.hamoney.persistence.AccountBookPayRepository
-import team.belloo.hamoney.persistence.PersonalPayRepository
+import team.belloo.hamoney.domain.pay.Pay
+import team.belloo.hamoney.domain.pay.PayRepository
 
 @UseCase
 class InitDefaultPayments(
-    private val personalPayRepository: PersonalPayRepository,
-    private val accountBookPayRepository: AccountBookPayRepository
+    private val payRepository: PayRepository,
 ) {
     operator fun invoke(command: Command) {
-        PersonalPayEntity().apply {
-            name = "개인카드"
-            userId = command.user.id
-            iconId = 0
-        }.also {
-            personalPayRepository.save(it)
+        Pay.Personal(
+            id = 0,
+            name = "개인카드",
+            iconId = 0,
+            userId = command.userId
+        ).also {
+            payRepository.save(it)
         }
 
-        AccountBookPayEntity().apply {
-            accountBookId = command.accountBook.id
-            name = "데이트 통장"
-            iconId = 0
-        }.also {
-            accountBookPayRepository.save(it)
+        Pay.Shared(
+            id = 0,
+            name = "데이트 통장",
+            iconId = 0,
+            accountBookId = command.accountBookId
+        ).also {
+            payRepository.save(it)
         }
     }
 
     data class Command(
-        val user: UserEntity,
-        val accountBook: AccountBookEntity
+        val userId: Long,
+        val accountBookId: Long
     )
 }
