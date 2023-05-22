@@ -24,7 +24,8 @@ class AppConfiguration(
     fun dateTimeFormatter(): DateTimeFormatter =
         DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss.SSS").withZone(ZoneId.of("Asia/Seoul"))
 
+    // flutter android는 localhost를 알 수 없기에 10.0.2.2로 호출한다
     @Bean
     fun getKakaoUser(kakaoTokenClient: KakaoTokenClient, kakaoUserClient: KakaoUserClient) =
-        GetKakaoUser(kakaoTokenClient, kakaoUserClient, baseUrl)
+        GetKakaoUser(kakaoTokenClient, kakaoUserClient, "http://10.0.2.2:8080")
 }
