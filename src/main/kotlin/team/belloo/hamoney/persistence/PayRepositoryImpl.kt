@@ -30,12 +30,14 @@ class PayRepositoryImpl(
             name = this@toEntity.name
             iconId = this@toEntity.iconId
             refId = this@toEntity.userId
+            type = PayEntity.Type.PERSONAL
         }
 
         is Pay.Shared -> PayEntity().apply {
             name = this@toEntity.name
             iconId = this@toEntity.iconId
             refId = this@toEntity.accountBookId
+            type = PayEntity.Type.SHARED
         }
     }
 

@@ -13,3 +13,5 @@ spring:
       path: /h2-console
       settings:
         trace: true
+  jpa:
+    show-sql: true
