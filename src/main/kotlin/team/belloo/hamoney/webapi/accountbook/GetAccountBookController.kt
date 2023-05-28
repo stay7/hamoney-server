@@ -8,7 +8,7 @@ import team.belloo.hamoney.Authentication
 import team.belloo.hamoney.domain.category.FindCategory
 import team.belloo.hamoney.domain.pay.PayRepository
 import team.belloo.hamoney.entity.user.UserEntity
-import team.belloo.hamoney.persistence.AccountBookRepository
+import team.belloo.hamoney.persistence.JpaAccountBookRepository
 import team.belloo.hamoney.persistence.MemberRepository
 import team.belloo.hamoney.webapi.AccountBookView
 import team.belloo.hamoney.webapi.JsonResult
@@ -18,7 +18,7 @@ import team.belloo.hamoney.webapi.toView
 @RequestMapping("/account_book")
 @Authentication
 class GetAccountBookController(
-    private val accountBookRepository: AccountBookRepository,
+    private val accountBookRepository: JpaAccountBookRepository,
     private val payRepository: PayRepository,
     private val memberRepository: MemberRepository,
     private val findCategory: FindCategory,

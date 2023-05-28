@@ -1,9 +1,9 @@
 package team.belloo.hamoney.domain.spending
 
 import team.belloo.hamoney.UseCase
-import team.belloo.hamoney.domain.pay.Pay
 import team.belloo.hamoney.domain.Spending
-import team.belloo.hamoney.entity.accountbook.AccountBookEntity
+import team.belloo.hamoney.domain.accountBook.AccountBook
+import team.belloo.hamoney.domain.pay.Pay
 import team.belloo.hamoney.entity.accountbook.CategoryEntity
 import team.belloo.hamoney.entity.accountbook.SubCategoryEntity
 import team.belloo.hamoney.entity.user.UserEntity
@@ -30,7 +30,7 @@ class RecordSpending(
 
     data class RecordSpendingCommand(
         val user: UserEntity,
-        val accountBook: AccountBookEntity,
+        val accountBook: AccountBook,
         val category: CategoryEntity,
         val subCategory: SubCategoryEntity,
         val pay: Pay,

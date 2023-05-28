@@ -5,14 +5,12 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import team.belloo.hamoney.Authentication
 import team.belloo.hamoney.entity.user.UserEntity
-import team.belloo.hamoney.persistence.AccountBookRepository
 import team.belloo.hamoney.webapi.JsonResult
 
 @RestController
 @RequestMapping("/spending/record")
 @Authentication
 class RecordSpendingController(
-    private val accountBookRepository: AccountBookRepository
 ) {
 
     @PostMapping

@@ -1,25 +1,28 @@
 package team.belloo.hamoney.domain.accountBook
 
 import team.belloo.hamoney.UseCase
-import team.belloo.hamoney.entity.accountbook.AccountBookEntity
 import team.belloo.hamoney.entity.accountbook.MemberEntity
 import team.belloo.hamoney.entity.user.UserEntity
-import team.belloo.hamoney.persistence.AccountBookRepository
 import team.belloo.hamoney.persistence.MemberRepository
+import java.time.Clock
 
 @UseCase
 class NewAccountBook(
     private val accountBookRepository: AccountBookRepository,
     private val memberRepository: MemberRepository,
     private val initDefaultCategories: InitDefaultCategories,
-    private val initDefaultPayments: InitDefaultPayments
+    private val initDefaultPayments: InitDefaultPayments,
+    private val clock: Clock,
 ) {
     operator fun invoke(
         user: UserEntity,
-    ): AccountBookEntity {
-        val newAccountBook = AccountBookEntity().apply {
-            name = "${user.nickname}의 가계부"
-        }.let {
+    ): AccountBook {
+        val newAccountBook = AccountBook(
+            id = 0,
+            name = "${user.nickname}의 가계부",
+            createdAt = clock.instant(),
+            updatedAt = clock.instant()
+        ).let {
             accountBookRepository.save(it)
         }
 
