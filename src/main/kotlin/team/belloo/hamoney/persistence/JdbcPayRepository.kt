@@ -6,23 +6,23 @@ import team.belloo.hamoney.domain.pay.PayRepository
 import team.belloo.hamoney.entity.PayEntity
 
 @Repository
-class PayRepositoryImpl(
-    private val payJpaRepository: PayJpaRepository
+class JdbcPayRepository(
+    private val jpaPayRepository: JpaPayRepository
 ) : PayRepository {
     override fun findById(id: Long): Pay? {
-        return payJpaRepository.findById(id).orElse(null)?.toDomain()
+        return jpaPayRepository.findById(id).orElse(null)?.toDomain()
     }
 
     override fun findAllSharedById(accountBookId: Long): List<Pay> {
-        return payJpaRepository.findAllByRefIdAndType(accountBookId, PayEntity.Type.SHARED).map { it.toDomain() }
+        return jpaPayRepository.findAllByRefIdAndType(accountBookId, PayEntity.Type.SHARED).map { it.toDomain() }
     }
 
     override fun findAllPersonalById(userId: Long): List<Pay> {
-        return payJpaRepository.findAllByRefIdAndType(userId, PayEntity.Type.PERSONAL).map { it.toDomain() }
+        return jpaPayRepository.findAllByRefIdAndType(userId, PayEntity.Type.PERSONAL).map { it.toDomain() }
     }
 
     override fun save(pay: Pay): Pay {
-        return payJpaRepository.save(pay.toEntity()).toDomain()
+        return jpaPayRepository.save(pay.toEntity()).toDomain()
     }
 
     private fun Pay.toEntity() = when (this@toEntity) {
