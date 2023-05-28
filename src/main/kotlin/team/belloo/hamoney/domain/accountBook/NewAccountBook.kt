@@ -1,9 +1,9 @@
 package team.belloo.hamoney.domain.accountBook
 
 import team.belloo.hamoney.UseCase
-import team.belloo.hamoney.entity.accountbook.MemberEntity
+import team.belloo.hamoney.domain.member.Member
+import team.belloo.hamoney.domain.member.MemberRepository
 import team.belloo.hamoney.entity.user.UserEntity
-import team.belloo.hamoney.persistence.MemberRepository
 import java.time.Clock
 
 @UseCase
@@ -26,10 +26,11 @@ class NewAccountBook(
             accountBookRepository.save(it)
         }
 
-        MemberEntity().apply {
-            userId = user.id
-            accountBookId = newAccountBook.id
-        }.also {
+        Member(
+            userId = user.id,
+            accountBookId = newAccountBook.id,
+            joinedAt = clock.instant()
+        ).also {
             memberRepository.save(it)
         }
 

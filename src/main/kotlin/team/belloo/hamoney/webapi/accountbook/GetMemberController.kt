@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import team.belloo.hamoney.Authentication
+import team.belloo.hamoney.domain.member.MemberRepository
 import team.belloo.hamoney.domain.pay.Pay
 import team.belloo.hamoney.domain.pay.PayRepository
 import team.belloo.hamoney.entity.user.UserEntity
-import team.belloo.hamoney.persistence.MemberRepository
 import team.belloo.hamoney.persistence.UserRepository
 import team.belloo.hamoney.webapi.JsonResult
 
@@ -27,7 +27,7 @@ class GetMemberController(
         user: UserEntity,
         @RequestParam accountBookId: Long
     ): JsonResult {
-        val memberPay = memberRepository.findAllByAccountBookId(user.id)
+        val memberPay = memberRepository.findAllByUserId(user.id)
             .filterNot { it.userId == user.id }
             .map {
                 MemberPay(
