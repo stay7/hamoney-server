@@ -4,6 +4,7 @@ import team.belloo.hamoney.Repository
 import team.belloo.hamoney.domain.user.User
 import team.belloo.hamoney.domain.user.UserRepository
 import team.belloo.hamoney.entity.user.UserEntity
+import team.belloo.hamoney.persistence.jpa.JpaUserRepository
 
 @Repository
 class JdbcUserRepository(

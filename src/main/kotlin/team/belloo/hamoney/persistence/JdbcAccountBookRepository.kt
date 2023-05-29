@@ -4,6 +4,7 @@ import team.belloo.hamoney.Repository
 import team.belloo.hamoney.domain.accountBook.AccountBook
 import team.belloo.hamoney.domain.accountBook.AccountBookRepository
 import team.belloo.hamoney.entity.accountbook.AccountBookEntity
+import team.belloo.hamoney.persistence.jpa.JpaAccountBookRepository
 
 @Repository
 class JdbcAccountBookRepository(

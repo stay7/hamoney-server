@@ -4,6 +4,7 @@ import team.belloo.hamoney.Repository
 import team.belloo.hamoney.domain.pay.Pay
 import team.belloo.hamoney.domain.pay.PayRepository
 import team.belloo.hamoney.entity.PayEntity
+import team.belloo.hamoney.persistence.jpa.JpaPayRepository
 
 @Repository
 class JdbcPayRepository(

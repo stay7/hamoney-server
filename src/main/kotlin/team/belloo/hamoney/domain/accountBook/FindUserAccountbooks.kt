@@ -1,7 +1,7 @@
 package team.belloo.hamoney.domain.accountBook
 
 import team.belloo.hamoney.UseCase
-import team.belloo.hamoney.persistence.JpaMemberRepository
+import team.belloo.hamoney.persistence.jpa.JpaMemberRepository
 
 @UseCase
 class FindUserAccountbooks(
