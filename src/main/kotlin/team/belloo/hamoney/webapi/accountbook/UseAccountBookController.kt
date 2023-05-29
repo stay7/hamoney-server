@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController
 import team.belloo.hamoney.Authentication
 import team.belloo.hamoney.domain.accountBook.NewAccountBook
 import team.belloo.hamoney.domain.member.MemberRepository
+import team.belloo.hamoney.domain.user.User
 import team.belloo.hamoney.entity.user.UserEntity
 import team.belloo.hamoney.webapi.JsonResult
 
@@ -19,7 +20,7 @@ class UseAccountBookController(
 
     @GetMapping("/alone")
     fun useAlone(
-        user: UserEntity
+        user: User
     ): JsonResult {
         if (memberRepository.findAllByUserId(user.id).isNotEmpty()) {
             return JsonResult.error("이미 가계부가 있습니다.")

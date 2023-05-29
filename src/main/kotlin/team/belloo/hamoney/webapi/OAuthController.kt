@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import team.belloo.hamoney.domain.oauth.IssueOAuthToken
 import team.belloo.hamoney.domain.signup.SignupTokenEncoder
+import team.belloo.hamoney.domain.user.UserRepository
 import team.belloo.hamoney.entity.oauth.RefreshTokenEntity
 import team.belloo.hamoney.persistence.RefreshTokenRepository
-import team.belloo.hamoney.persistence.UserRepository
 
 @RestController
 @RequestMapping("/oauth")
@@ -43,7 +43,7 @@ class OAuthController(
         val user = refreshTokenRepository.findByToken(refreshTokenString)?.takeIf {
             it.status == RefreshTokenEntity.Status.ACTIVE.value
         }?.let {
-            userRepository.findById(it.userId).orElse(null)
+            userRepository.findById(it.userId)
         } ?: return JsonResult.error()
 
         return issueOAuthToken.invoke(user).let {

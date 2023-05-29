@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import team.belloo.hamoney.domain.oauth.IssueOAuthToken
 import team.belloo.hamoney.domain.signup.SignupTokenEncoder
+import team.belloo.hamoney.domain.user.UserRepository
 import team.belloo.hamoney.persistence.SocialSignupRepository
-import team.belloo.hamoney.persistence.UserRepository
 import java.time.Clock
 
 @RestController
@@ -40,10 +40,9 @@ class SignupController(
             socialSignupRepository.findByEmail(form.email) ?: return JsonResult.error("empty social signup")
 
         val now = clock.instant()
-        user.apply {
+        user.copy(
             nickname = form.nickname
-            signedAt = now
-        }.also {
+        ).also {
             userRepository.save(it)
         }
 

@@ -8,9 +8,9 @@ import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
 import org.springframework.web.method.HandlerMethod
 import org.springframework.web.servlet.HandlerInterceptor
-import team.belloo.hamoney.entity.user.UserEntity
+import team.belloo.hamoney.domain.user.User
+import team.belloo.hamoney.domain.user.UserRepository
 import team.belloo.hamoney.persistence.AccessTokenRepository
-import team.belloo.hamoney.persistence.UserRepository
 import team.belloo.hamoney.webapi.JsonResult
 import java.time.Clock
 import java.util.logging.Logger
@@ -39,10 +39,12 @@ class AuthenticateInterceptor(
                         response.status = HttpStatus.BAD_REQUEST.value()
                         response.writer.write(objectMapper.writeValueAsString(JsonResult(status = JsonResult.Status.ERROR)))
                     }
+
                     Result.Reason.TOKEN_EXPIRED -> {
                         response.status = HttpStatus.UNAUTHORIZED.value()
                         response.writer.write(objectMapper.writeValueAsString(JsonResult(status = JsonResult.Status.ERROR)))
                     }
+
                     else -> {
                         response.status = HttpStatus.INTERNAL_SERVER_ERROR.value()
                         response.writer.write(objectMapper.writeValueAsString(JsonResult(status = JsonResult.Status.ERROR)))
@@ -71,14 +73,14 @@ class AuthenticateInterceptor(
             return Result.Fail(Result.Reason.TOKEN_EXPIRED)
         }
 
-        val user = userRepository.findById(accessToken.userId).orElse(null) ?: return Result.Fail()
+        val user = userRepository.findById(accessToken.userId)!!
         return Result.Success(user)
     }
 }
 
 internal sealed class Result(val reason: Reason? = null) {
     class Success(
-        val user: UserEntity
+        val user: User
     ) : Result()
 
     class Fail(reason: Reason? = null) : Result(reason)

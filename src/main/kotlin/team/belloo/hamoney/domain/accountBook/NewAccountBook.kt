@@ -3,7 +3,7 @@ package team.belloo.hamoney.domain.accountBook
 import team.belloo.hamoney.UseCase
 import team.belloo.hamoney.domain.member.Member
 import team.belloo.hamoney.domain.member.MemberRepository
-import team.belloo.hamoney.entity.user.UserEntity
+import team.belloo.hamoney.domain.user.User
 import java.time.Clock
 
 @UseCase
@@ -15,7 +15,7 @@ class NewAccountBook(
     private val clock: Clock,
 ) {
     operator fun invoke(
-        user: UserEntity,
+        user: User,
     ): AccountBook {
         val newAccountBook = AccountBook(
             id = 0,

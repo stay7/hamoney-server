@@ -2,9 +2,9 @@ package team.belloo.hamoney.domain.accountBook
 
 import team.belloo.hamoney.UseCase
 import team.belloo.hamoney.domain.category.DefaultCategories
+import team.belloo.hamoney.domain.user.User
 import team.belloo.hamoney.entity.accountbook.CategoryEntity
 import team.belloo.hamoney.entity.accountbook.SubCategoryEntity
-import team.belloo.hamoney.entity.user.UserEntity
 import team.belloo.hamoney.persistence.CategoryRepository
 import team.belloo.hamoney.persistence.SubCategoryRepository
 
@@ -36,7 +36,7 @@ class InitDefaultCategories(
     }
 
     data class Command(
-        val user: UserEntity,
+        val user: User,
         val accountBook: AccountBook
     )
 }

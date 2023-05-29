@@ -9,8 +9,8 @@ import team.belloo.hamoney.Authentication
 import team.belloo.hamoney.domain.member.MemberRepository
 import team.belloo.hamoney.domain.pay.Pay
 import team.belloo.hamoney.domain.pay.PayRepository
-import team.belloo.hamoney.entity.user.UserEntity
-import team.belloo.hamoney.persistence.UserRepository
+import team.belloo.hamoney.domain.user.User
+import team.belloo.hamoney.domain.user.UserRepository
 import team.belloo.hamoney.webapi.JsonResult
 
 @RestController
@@ -24,14 +24,14 @@ class GetMemberController(
 
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
     fun members(
-        user: UserEntity,
+        user: team.belloo.hamoney.entity.user.UserEntity,
         @RequestParam accountBookId: Long
     ): JsonResult {
         val memberPay = memberRepository.findAllByUserId(user.id)
             .filterNot { it.userId == user.id }
             .map {
                 MemberPay(
-                    user = userRepository.findById(it.userId).orElseThrow(),
+                    user = userRepository.findById(it.userId)!!,
                     payments = payRepository.findAllPersonalById(it.userId)
                 )
             }
@@ -55,7 +55,7 @@ class GetMemberController(
     }
 
     data class MemberPay(
-        val user: UserEntity,
+        val user: User,
         val payments: List<Pay>
     )
 

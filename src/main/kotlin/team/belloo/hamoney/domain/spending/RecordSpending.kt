@@ -4,9 +4,9 @@ import team.belloo.hamoney.UseCase
 import team.belloo.hamoney.domain.Spending
 import team.belloo.hamoney.domain.accountBook.AccountBook
 import team.belloo.hamoney.domain.pay.Pay
+import team.belloo.hamoney.domain.user.User
 import team.belloo.hamoney.entity.accountbook.CategoryEntity
 import team.belloo.hamoney.entity.accountbook.SubCategoryEntity
-import team.belloo.hamoney.entity.user.UserEntity
 
 @UseCase
 class RecordSpending(
@@ -29,7 +29,7 @@ class RecordSpending(
     }
 
     data class RecordSpendingCommand(
-        val user: UserEntity,
+        val user: User,
         val accountBook: AccountBook,
         val category: CategoryEntity,
         val subCategory: SubCategoryEntity,

@@ -34,7 +34,7 @@ class UserEntity {
     var profile: String = ""
 
     @Column
-    var status: Int = 1
+    var status: Int = Status.ACTIVE.value
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
@@ -49,7 +49,7 @@ class UserEntity {
     var updatedAt: Instant = Instant.now()
 
     enum class Status(val value: Int) {
-        ACTIVE(0);
+        ACTIVE(0), INACTIVE(1);
     }
 
     override fun equals(other: Any?): Boolean {

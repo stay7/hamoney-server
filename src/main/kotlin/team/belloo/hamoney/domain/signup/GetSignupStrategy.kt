@@ -1,8 +1,8 @@
 package team.belloo.hamoney.domain.signup
 
 import team.belloo.hamoney.UseCase
+import team.belloo.hamoney.domain.user.UserRepository
 import team.belloo.hamoney.persistence.SocialSignupRepository
-import team.belloo.hamoney.persistence.UserRepository
 
 /**
  * email로 찾은 유저 있음 && socialSignupEntity도 있음 -> completedAt이 있으면 ExistedUser, 없으면 Retry
@@ -26,7 +26,7 @@ class GetSignupStrategy(
             email = email,
             provider = provider,
             providerId = providerId,
-            userEntity = null,
+            user = null,
             socialSignupEntity = null
         )
         val user = userRepository.findByEmail(email)
@@ -38,19 +38,19 @@ class GetSignupStrategy(
                     email = email,
                     provider = provider,
                     providerId = providerId,
-                    userEntity = null,
+                    user = null,
                     socialSignupEntity = null
                 )
 
             user != null && socialSignupHistory == null -> strategyByType.getValue(SignupStrategy.Type.CONNECT_SOCIAL) to signupCommand.copy(
-                userEntity = user
+                user = user
             )
             user != null && socialSignupHistory != null -> {
                 if (socialSignupHistory.completedAt != null) strategyByType.getValue(SignupStrategy.Type.EXISTED_USER) to signupCommand.copy(
-                    userEntity = user,
+                    user = user,
                     socialSignupEntity = socialSignupHistory
                 ) else strategyByType.getValue(SignupStrategy.Type.RETRY) to signupCommand.copy(
-                    userEntity = user,
+                    user = user,
                     socialSignupEntity = socialSignupHistory
                 )
             }

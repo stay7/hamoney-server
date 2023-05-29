@@ -1,12 +1,12 @@
 package team.belloo.hamoney.domain.signup
 
+import team.belloo.hamoney.domain.user.User
 import team.belloo.hamoney.entity.signup.SocialSignupEntity
-import team.belloo.hamoney.entity.user.UserEntity
 
 interface SignupStrategy {
     val type: Type
 
-    operator fun invoke(command: SignupCommand): UserEntity
+    operator fun invoke(command: SignupCommand): User
 
     enum class Type {
         NEW_USER, EXISTED_USER, RETRY, CONNECT_SOCIAL
@@ -16,7 +16,7 @@ interface SignupStrategy {
         val email: String,
         val provider: SocialProvider,
         val providerId: String,
-        val userEntity: UserEntity?,
+        val user: User?,
         val socialSignupEntity: SocialSignupEntity?
     )
 }

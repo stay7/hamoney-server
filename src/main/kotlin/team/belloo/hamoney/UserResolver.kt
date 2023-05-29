@@ -6,11 +6,11 @@ import org.springframework.web.bind.support.WebDataBinderFactory
 import org.springframework.web.context.request.NativeWebRequest
 import org.springframework.web.method.support.HandlerMethodArgumentResolver
 import org.springframework.web.method.support.ModelAndViewContainer
-import team.belloo.hamoney.entity.user.UserEntity
+import team.belloo.hamoney.domain.user.User
 
 class UserResolver : HandlerMethodArgumentResolver {
     override fun supportsParameter(parameter: MethodParameter): Boolean {
-        return parameter.parameterType == UserEntity::class.java
+        return parameter.parameterType == User::class.java
     }
 
     override fun resolveArgument(
@@ -18,8 +18,8 @@ class UserResolver : HandlerMethodArgumentResolver {
         mavContainer: ModelAndViewContainer?,
         webRequest: NativeWebRequest,
         binderFactory: WebDataBinderFactory?
-    ): UserEntity {
+    ): User {
         val request = webRequest.getNativeRequest() as HttpServletRequest
-        return request.getAttribute(HamoneyAttribute.USER_HEADER) as UserEntity
+        return request.getAttribute(HamoneyAttribute.USER_HEADER) as User
     }
 }

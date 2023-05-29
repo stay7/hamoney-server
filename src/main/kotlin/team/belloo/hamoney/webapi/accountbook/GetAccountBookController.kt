@@ -8,7 +8,7 @@ import team.belloo.hamoney.Authentication
 import team.belloo.hamoney.domain.category.FindCategory
 import team.belloo.hamoney.domain.member.MemberRepository
 import team.belloo.hamoney.domain.pay.PayRepository
-import team.belloo.hamoney.entity.user.UserEntity
+import team.belloo.hamoney.domain.user.User
 import team.belloo.hamoney.persistence.JpaAccountBookRepository
 import team.belloo.hamoney.webapi.AccountBookView
 import team.belloo.hamoney.webapi.JsonResult
@@ -26,7 +26,7 @@ class GetAccountBookController(
 
     @GetMapping
     fun accountBook(
-        user: UserEntity,
+        user: User,
         @RequestParam accountBookId: Long
     ): JsonResult {
         if (accountBookId !in memberRepository.findAllByUserId(user.id).map { it.accountBookId })
