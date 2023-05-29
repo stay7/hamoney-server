@@ -4,10 +4,10 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import team.belloo.hamoney.core.user.UserRepository
 import team.belloo.hamoney.domain.oauth.IssueOAuthToken
 import team.belloo.hamoney.domain.signup.SignupTokenEncoder
-import team.belloo.hamoney.domain.user.UserRepository
-import team.belloo.hamoney.persistence.SocialSignupRepository
+import team.belloo.hamoney.persistence.JpaSocialSignupRepository
 import java.time.Clock
 
 @RestController
@@ -15,7 +15,7 @@ import java.time.Clock
 class SignupController(
     private val clock: Clock,
     private val userRepository: UserRepository,
-    private val socialSignupRepository: SocialSignupRepository,
+    private val socialSignupRepository: JpaSocialSignupRepository,
     private val issueOAuthToken: IssueOAuthToken
 ) {
 
@@ -30,10 +30,6 @@ class SignupController(
 
         if (form.token != SignupTokenEncoder.encode(form.email))
             return JsonResult.error()
-
-        userRepository.findByNickname(form.nickname)?.let {
-            return JsonResult.error("이미 존재하는 닉네임입니다")
-        }
 
         val user = userRepository.findByEmail(form.email) ?: return JsonResult.error("이메일로 유저를 찾을 수 없네요")
         val socialSignupEntity =

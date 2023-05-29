@@ -1,8 +1,10 @@
 package team.belloo.hamoney.domain.signup
 
 import team.belloo.hamoney.UseCase
-import team.belloo.hamoney.domain.user.UserRepository
-import team.belloo.hamoney.persistence.SocialSignupRepository
+import team.belloo.hamoney.core.signup.SignupStrategy
+import team.belloo.hamoney.core.signup.SocialProvider
+import team.belloo.hamoney.core.signup.SocialSignupHistoryRepository
+import team.belloo.hamoney.core.user.UserRepository
 
 /**
  * email로 찾은 유저 있음 && socialSignupEntity도 있음 -> completedAt이 있으면 ExistedUser, 없으면 Retry
@@ -13,45 +15,46 @@ import team.belloo.hamoney.persistence.SocialSignupRepository
 @UseCase
 class GetSignupStrategy(
     private val userRepository: UserRepository,
-    private val socialSignupRepository: SocialSignupRepository,
+    private val socialSignupRepository: SocialSignupHistoryRepository,
     private val strategies: List<SignupStrategy>
 ) {
     operator fun invoke(
         email: String,
         provider: SocialProvider,
         providerId: String
-    ): Pair<SignupStrategy, SignupStrategy.SignupCommand> {
+    ): Pair<SignupStrategy, SignupStrategy.Command> {
         val strategyByType = strategies.associateBy { it.type }
-        val signupCommand = SignupStrategy.SignupCommand(
+        val command = SignupStrategy.Command(
             email = email,
             provider = provider,
             providerId = providerId,
             user = null,
-            socialSignupEntity = null
+            socialSignupHistory = null
         )
         val user = userRepository.findByEmail(email)
         val socialSignupHistory = socialSignupRepository.findByProviderKey(providerKey(provider, providerId))
 
         return when {
             user == null && socialSignupHistory == null ->
-                strategyByType.getValue(SignupStrategy.Type.NEW_USER) to SignupStrategy.SignupCommand(
+                strategyByType.getValue(SignupStrategy.Type.NEW_USER) to SignupStrategy.Command(
                     email = email,
                     provider = provider,
                     providerId = providerId,
                     user = null,
-                    socialSignupEntity = null
+                    socialSignupHistory = null
                 )
 
-            user != null && socialSignupHistory == null -> strategyByType.getValue(SignupStrategy.Type.CONNECT_SOCIAL) to signupCommand.copy(
+            user != null && socialSignupHistory == null -> strategyByType.getValue(SignupStrategy.Type.CONNECT_SOCIAL) to command.copy(
                 user = user
             )
+
             user != null && socialSignupHistory != null -> {
-                if (socialSignupHistory.completedAt != null) strategyByType.getValue(SignupStrategy.Type.EXISTED_USER) to signupCommand.copy(
+                if (socialSignupHistory.completedAt != null) strategyByType.getValue(SignupStrategy.Type.EXISTED_USER) to command.copy(
                     user = user,
-                    socialSignupEntity = socialSignupHistory
-                ) else strategyByType.getValue(SignupStrategy.Type.RETRY) to signupCommand.copy(
+                    socialSignupHistory = socialSignupHistory
+                ) else strategyByType.getValue(SignupStrategy.Type.RETRY) to command.copy(
                     user = user,
-                    socialSignupEntity = socialSignupHistory
+                    socialSignupHistory = socialSignupHistory
                 )
             }
 

@@ -1,5 +1,6 @@
 package team.belloo.hamoney.domain.category
 
+import team.belloo.hamoney.core.category.Category
 import team.belloo.hamoney.UseCase
 import team.belloo.hamoney.persistence.CategoryRepository
 import team.belloo.hamoney.persistence.SubCategoryRepository

@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import team.belloo.hamoney.Authentication
 import team.belloo.hamoney.domain.category.FindCategory
-import team.belloo.hamoney.domain.member.MemberRepository
-import team.belloo.hamoney.domain.pay.PayRepository
-import team.belloo.hamoney.domain.user.User
-import team.belloo.hamoney.persistence.jpa.JpaAccountBookRepository
+import team.belloo.hamoney.core.member.MemberRepository
+import team.belloo.hamoney.core.pay.PayRepository
+import team.belloo.hamoney.core.user.User
+import team.belloo.hamoney.persistence.JpaAccountBookRepository
 import team.belloo.hamoney.webapi.AccountBookView
 import team.belloo.hamoney.webapi.JsonResult
 import team.belloo.hamoney.webapi.toView

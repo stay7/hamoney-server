@@ -8,8 +8,8 @@ import team.belloo.hamoney.domain.GetGoogleUser
 import team.belloo.hamoney.domain.GetKakaoUser
 import team.belloo.hamoney.domain.signup.SignupTokenEncoder
 import team.belloo.hamoney.domain.signup.GetSignupStrategy
-import team.belloo.hamoney.domain.signup.SignupStrategy
-import team.belloo.hamoney.domain.signup.SocialProvider
+import team.belloo.hamoney.core.signup.SignupStrategy
+import team.belloo.hamoney.core.signup.SocialProvider
 
 @Controller
 @RequestMapping("/social")

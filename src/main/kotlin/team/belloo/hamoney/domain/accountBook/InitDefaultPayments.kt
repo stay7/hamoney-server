@@ -1,8 +1,8 @@
 package team.belloo.hamoney.domain.accountBook
 
 import team.belloo.hamoney.UseCase
-import team.belloo.hamoney.domain.pay.Pay
-import team.belloo.hamoney.domain.pay.PayRepository
+import team.belloo.hamoney.core.pay.Pay
+import team.belloo.hamoney.core.pay.PayRepository
 
 @UseCase
 class InitDefaultPayments(

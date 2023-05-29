@@ -1,8 +1,9 @@
 package team.belloo.hamoney.domain.accountBook
 
+import team.belloo.hamoney.core.accountbook.AccountBook
+import team.belloo.hamoney.core.user.User
 import team.belloo.hamoney.UseCase
 import team.belloo.hamoney.domain.category.DefaultCategories
-import team.belloo.hamoney.domain.user.User
 import team.belloo.hamoney.entity.accountbook.CategoryEntity
 import team.belloo.hamoney.entity.accountbook.SubCategoryEntity
 import team.belloo.hamoney.persistence.CategoryRepository

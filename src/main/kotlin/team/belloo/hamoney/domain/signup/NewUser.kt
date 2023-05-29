@@ -1,24 +1,26 @@
 package team.belloo.hamoney.domain.signup
 
 import team.belloo.hamoney.UseCase
-import team.belloo.hamoney.domain.user.User
-import team.belloo.hamoney.domain.user.UserRepository
+import team.belloo.hamoney.core.signup.SignupStrategy
+import team.belloo.hamoney.core.user.User
+import team.belloo.hamoney.core.user.UserRepository
 import team.belloo.hamoney.entity.signup.SocialSignupEntity
-import team.belloo.hamoney.persistence.SocialSignupRepository
+import team.belloo.hamoney.persistence.JpaSocialSignupRepository
 import java.time.Clock
 import java.util.UUID
 
 @UseCase
 class NewUser(
     private val userRepository: UserRepository,
-    private val socialSignupRepository: SocialSignupRepository,
+    private val socialSignupRepository: JpaSocialSignupRepository,
     private val clock: Clock
 ) : SignupStrategy {
     override val type: SignupStrategy.Type
         get() = SignupStrategy.Type.NEW_USER
 
-    override fun invoke(command: SignupStrategy.SignupCommand): User {
-        require(command.user == null && command.socialSignupEntity == null)
+    override fun invoke(command: SignupStrategy.Command): User {
+        checkNotNull(command.user)
+        checkNotNull(command.socialSignupHistory)
 
         val uuid = UUID.randomUUID().toString()
 

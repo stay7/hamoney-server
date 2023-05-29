@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import team.belloo.hamoney.Authentication
-import team.belloo.hamoney.domain.member.MemberRepository
-import team.belloo.hamoney.domain.pay.Pay
-import team.belloo.hamoney.domain.pay.PayRepository
-import team.belloo.hamoney.domain.user.User
-import team.belloo.hamoney.domain.user.UserRepository
+import team.belloo.hamoney.core.member.MemberRepository
+import team.belloo.hamoney.core.pay.Pay
+import team.belloo.hamoney.core.pay.PayRepository
+import team.belloo.hamoney.core.user.User
+import team.belloo.hamoney.core.user.UserRepository
 import team.belloo.hamoney.webapi.JsonResult
 
 @RestController

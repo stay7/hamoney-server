@@ -1,6 +1,6 @@
 package team.belloo.hamoney.domain
 
-import team.belloo.hamoney.domain.pay.Pay
+import team.belloo.hamoney.core.pay.Pay
 
 sealed class Spending(
     open val id: Long,

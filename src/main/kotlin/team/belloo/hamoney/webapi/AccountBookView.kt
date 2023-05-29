@@ -1,8 +1,8 @@
 package team.belloo.hamoney.webapi
 
-import team.belloo.hamoney.domain.category.Category
-import team.belloo.hamoney.domain.category.SubCategory
-import team.belloo.hamoney.domain.pay.Pay
+import team.belloo.hamoney.core.category.Category
+import team.belloo.hamoney.core.category.SubCategory
+import team.belloo.hamoney.core.pay.Pay
 
 data class AccountBookView(
     val id: Long,

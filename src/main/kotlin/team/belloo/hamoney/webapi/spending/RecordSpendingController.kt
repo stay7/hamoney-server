@@ -4,8 +4,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import team.belloo.hamoney.Authentication
-import team.belloo.hamoney.domain.user.User
-import team.belloo.hamoney.entity.user.UserEntity
+import team.belloo.hamoney.core.user.User
 import team.belloo.hamoney.webapi.JsonResult
 
 @RestController

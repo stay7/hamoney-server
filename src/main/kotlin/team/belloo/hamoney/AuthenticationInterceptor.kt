@@ -8,8 +8,8 @@ import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
 import org.springframework.web.method.HandlerMethod
 import org.springframework.web.servlet.HandlerInterceptor
-import team.belloo.hamoney.domain.user.User
-import team.belloo.hamoney.domain.user.UserRepository
+import team.belloo.hamoney.core.user.User
+import team.belloo.hamoney.core.user.UserRepository
 import team.belloo.hamoney.persistence.AccessTokenRepository
 import team.belloo.hamoney.webapi.JsonResult
 import java.time.Clock

@@ -1,5 +1,7 @@
 package team.belloo.hamoney.domain.category
 
+import team.belloo.hamoney.core.category.Category
+import team.belloo.hamoney.core.category.SubCategory
 import team.belloo.hamoney.entity.accountbook.CategoryEntity
 import team.belloo.hamoney.entity.accountbook.SubCategoryEntity
 
