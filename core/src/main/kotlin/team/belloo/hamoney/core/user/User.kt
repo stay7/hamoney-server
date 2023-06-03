@@ -6,6 +6,7 @@ data class User(
     val id: Long,
     val uuid: String,
     val email: String,
+    val profile: String = "",
     val nickname: String,
     val createdAt: Instant,
     val updatedAt: Instant,

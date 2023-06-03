@@ -37,7 +37,8 @@ class SignupController(
 
         val now = clock.instant()
         user.copy(
-            nickname = form.nickname
+            nickname = form.nickname,
+            updatedAt = now
         ).also {
             userRepository.save(it)
         }

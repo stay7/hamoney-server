@@ -19,9 +19,6 @@ class NewUser(
         get() = SignupStrategy.Type.NEW_USER
 
     override fun invoke(command: SignupStrategy.Command): User {
-        checkNotNull(command.user)
-        checkNotNull(command.socialSignupHistory)
-
         val uuid = UUID.randomUUID().toString()
 
         val user = User(

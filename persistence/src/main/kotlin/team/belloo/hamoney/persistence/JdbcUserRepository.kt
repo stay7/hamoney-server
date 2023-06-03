@@ -30,10 +30,11 @@ class JdbcUserRepository(
     }
 
     private fun User.toEntity() = UserEntity().apply {
-        id = 0
+        id = this@toEntity.id
         uuid = this@toEntity.uuid
         email = this@toEntity.email
         nickname = this@toEntity.nickname
+        profile = this@toEntity.profile
         status = when (this@toEntity.status) {
             User.Status.ACTIVE -> UserEntity.Status.ACTIVE.value
             User.Status.INACTIVE -> UserEntity.Status.INACTIVE.value
