@@ -17,7 +17,7 @@ class WebConfiguration {
     private val logging = HttpLoggingInterceptor().also {
         it.level = HttpLoggingInterceptor.Level.BODY
     }
-    private val client = OkHttpClient.Builder().addInterceptor(logging).build()
+    private val client = OkHttpClient.Builder().build()
 
     @Bean
     fun googleTokenCliient(

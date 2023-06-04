@@ -20,6 +20,7 @@ class GetKakaoUser(
             kakaoTokenClient.token(code = code, redirectUri = "${baseUrl}/social/kakao/code").execute()
                 .let { response ->
                     if (!response.isSuccessful) {
+                        logger.error(response.toString())
                         throw IllegalStateException(response.errorBody()?.string())
                     }
                     response.body()

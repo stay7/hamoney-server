@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter
 
 class AccessLogFilter(
     private val dateTimeFormatter: DateTimeFormatter,
-    private val logger: Logger,
+    private val accessLogger: Logger,
     private val clock: Clock
 ) : OncePerRequestFilter() {
 
@@ -44,9 +44,9 @@ class AccessLogFilter(
                 response = response,
                 exception = exception
             ).run {
-                logger.info(this.toString())
+                accessLogger.info(objectMapper.writeValueAsString(this))
                 exception?.let {
-                    logger.error(exception)
+                    accessLogger.error(exception.toString())
                     exception.printStackTrace()
                 }
                 response.copyBodyToResponse()
@@ -64,9 +64,7 @@ class AccessLogFilter(
         val requestJson = if (request.contentType != null &&
             MediaType.parseMediaType(request.contentType).isCompatibleWith(MediaType.APPLICATION_JSON)
         ) {
-            request.contentAsByteArray?.let {
-                objectMapper.readTree(it)
-            }
+            request.contentAsByteArray?.let { objectMapper.readTree(it) }
         } else {
             request.parameterMap
         }
@@ -79,12 +77,12 @@ class AccessLogFilter(
         } else {
             null
         }
-
+        exception?.also { accessLogger.error(it.toString()) }
         return AccessLog(
             httpStatus = response.status,
             url = request.requestURI,
             authorization = request.getHeader(HamoneyAttribute.AUTHORIZATION),
-            requestBody = requestJson.toString(),
+            requestBody = objectMapper.writeValueAsString(requestJson),
             requestTime = dateTimeFormatter.format(startTime),
             parameters = objectMapper.writeValueAsString(request.parameterMap),
             elapsedTime = "${Duration.between(startTime, endTime).toMillis()}ms",

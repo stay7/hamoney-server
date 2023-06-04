@@ -1,7 +1,3 @@
-server:
-  tomcat:
-    accesslog:
-      enabled: true
 spring:
   datasource:
     username: hoodie
@@ -15,4 +11,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
-
+logging:
+  file:
+    path: /logs
+    name: /application.log
