@@ -14,6 +14,7 @@ class NewAccountBook(
     private val memberRepository: MemberRepository,
     private val initDefaultCategories: InitDefaultCategories,
     private val initDefaultPayments: InitDefaultPayments,
+    private val issueInvitationCode: IssueInvitationCode,
     private val clock: Clock,
 ) {
     operator fun invoke(
@@ -38,6 +39,7 @@ class NewAccountBook(
 
         initDefaultCategories(InitDefaultCategories.Command(user, newAccountBook))
         initDefaultPayments(InitDefaultPayments.Command(user.id, newAccountBook.id))
+        issueInvitationCode(newAccountBook.id)
 
         return newAccountBook
     }

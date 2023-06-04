@@ -9,6 +9,10 @@ import team.belloo.hamoney.entity.accountbook.MemberEntity
 class JdbcMemberRepository(
     private val jpaMemberRepository: JpaMemberRepository,
 ) : MemberRepository {
+    override fun find(userId: Long, accountBookId: Long): Member? {
+        return jpaMemberRepository.findByUserIdAndAccountBookId(userId, accountBookId)?.toDomain()
+    }
+
     override fun findAllByUserId(userId: Long): Set<Member> {
         return jpaMemberRepository.findAllByUserId(userId).map { it.toDomain() }.toSet()
     }
