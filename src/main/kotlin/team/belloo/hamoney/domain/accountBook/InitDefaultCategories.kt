@@ -6,13 +6,13 @@ import team.belloo.hamoney.UseCase
 import team.belloo.hamoney.domain.category.DefaultCategories
 import team.belloo.hamoney.entity.accountbook.CategoryEntity
 import team.belloo.hamoney.entity.accountbook.SubCategoryEntity
-import team.belloo.hamoney.persistence.CategoryRepository
-import team.belloo.hamoney.persistence.SubCategoryRepository
+import team.belloo.hamoney.persistence.JpaCategoryRepository
+import team.belloo.hamoney.persistence.JpaSubCategoryRepository
 
 @UseCase
 class InitDefaultCategories(
-    private val categoryRepository: CategoryRepository,
-    private val subCategoryRepository: SubCategoryRepository
+    private val categoryRepository: JpaCategoryRepository,
+    private val subCategoryRepository: JpaSubCategoryRepository
 ) {
 
     operator fun invoke(command: Command) {

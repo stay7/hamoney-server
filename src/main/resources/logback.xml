@@ -10,10 +10,10 @@
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
         <file>./logs/access.log</file>
         <encoder>
-            <pattern>%-4relative [%thread] %-5level %logger{35} -%kvp- %msg %n</pattern>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
-
+s
     <logger name="ACCESS_LOG" level="INFO">
         <appender-ref ref="FILE"/>
     </logger>

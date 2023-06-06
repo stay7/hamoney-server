@@ -28,7 +28,6 @@ class GetMemberController(
         @RequestParam accountBookId: Long
     ): JsonResult {
         val memberPay = memberRepository.findAllByUserId(user.id)
-            .filterNot { it.userId == user.id }
             .map {
                 MemberPay(
                     user = userRepository.findById(it.userId)!!,

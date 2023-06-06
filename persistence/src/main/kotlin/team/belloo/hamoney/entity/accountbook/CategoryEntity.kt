@@ -2,20 +2,15 @@ package team.belloo.hamoney.entity.accountbook
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
-import jakarta.persistence.EntityListeners
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Index
 import jakarta.persistence.Table
-import jakarta.persistence.Temporal
-import jakarta.persistence.TemporalType
-import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.Instant
 
 @Entity
 @Table(name = "category", indexes = [Index(name = "category_idx_account_book_id", columnList = "account_book_id")])
-@EntityListeners(AuditingEntityListener::class)
 class CategoryEntity {
 
     @Id
@@ -30,11 +25,9 @@ class CategoryEntity {
     var name: String = ""
 
     @Column
-    @Temporal(TemporalType.TIMESTAMP)
     var createdAt: Instant = Instant.now()
 
     @Column
-    @Temporal(TemporalType.TIMESTAMP)
     var updatedAt: Instant = Instant.now()
 
     override fun equals(other: Any?): Boolean {

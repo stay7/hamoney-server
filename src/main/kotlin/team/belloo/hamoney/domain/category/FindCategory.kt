@@ -2,13 +2,13 @@ package team.belloo.hamoney.domain.category
 
 import team.belloo.hamoney.core.category.Category
 import team.belloo.hamoney.UseCase
-import team.belloo.hamoney.persistence.CategoryRepository
-import team.belloo.hamoney.persistence.SubCategoryRepository
+import team.belloo.hamoney.persistence.JpaCategoryRepository
+import team.belloo.hamoney.persistence.JpaSubCategoryRepository
 
 @UseCase
 class FindCategory(
-    private val categoryRepository: CategoryRepository,
-    private val subCategoryRepository: SubCategoryRepository
+    private val categoryRepository: JpaCategoryRepository,
+    private val subCategoryRepository: JpaSubCategoryRepository
 ) {
 
     fun byId(id: Long): Category? {
