@@ -24,7 +24,7 @@ class GetMemberController(
 
     @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
     fun members(
-        user: team.belloo.hamoney.entity.user.UserEntity,
+        user: User,
         @RequestParam accountBookId: Long
     ): JsonResult {
         val memberPay = memberRepository.findAllByUserId(user.id)
@@ -39,7 +39,7 @@ class GetMemberController(
             accountBookId = accountBookId,
             members = memberPay.map {
                 MemberView(
-                    userId = it.user.uuid,
+                    id = it.user.id,
                     nickname = it.user.nickname,
                     payments = it.payments.map {
                         PaymentView(
@@ -64,13 +64,13 @@ class GetMemberController(
     ) : JsonResult(status = Status.SUCCESS)
 
     data class MemberView(
-        val userId: String,
+        val id: Long,
         val nickname: String,
         val payments: List<PaymentView>
     )
 
     data class PaymentView(
-        val payId: Long,
+        val id: Long,
         val iconId: Int,
         val name: String
     )

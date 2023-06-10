@@ -10,7 +10,7 @@ data class AccountBookView(
     val categories: List<CategoryView>,
     val payments: List<PayView>,
     val createdAt: Long
-) : JsonResult(status = Status.SUCCESS)
+)
 
 data class CategoryView(
     val id: Long,

@@ -18,7 +18,9 @@ internal fun CategoryEntity.toDomain(
     id = id,
     accountBookId = accountBookId,
     name = name,
-    subCategories = subCategories
+    subCategories = subCategories,
+    createdAt = createdAt,
+    updatedAt = updatedAt
 )
 
 internal fun SubCategory.toEntity(categoryId: Long) = SubCategoryEntity().apply {

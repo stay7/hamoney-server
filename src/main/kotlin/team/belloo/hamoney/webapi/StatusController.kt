@@ -25,7 +25,7 @@ class StatusController(
 
         return StatusResult(
             me = UserView(
-                userId = user.id,
+                id = user.id,
                 nickname = user.nickname,
                 email = user.email,
                 profile = user.profile
@@ -46,7 +46,7 @@ class StatusController(
     ) : JsonResult(status = Status.SUCCESS)
 
     data class UserView(
-        val userId: Long,
+        val id: Long,
         val nickname: String,
         val email: String,
         val profile: String

@@ -52,7 +52,7 @@ class SignupController(
         val (accessToken, refreshToken) = issueOAuthToken.invoke(user)
 
         return SignupResult(
-            id = user.uuid,
+            id = user.id,
             email = user.email,
             nickname = user.nickname,
             accessToken = accessToken,
@@ -61,7 +61,7 @@ class SignupController(
     }
 
     data class SignupResult(
-        val id: String,
+        val id: Long,
         val email: String,
         val nickname: String,
         val accessToken: String,
