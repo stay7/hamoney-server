@@ -17,7 +17,7 @@ open class JsonResult(
         companion object {
             val SUCCESS = Status(0)
             val ERROR = Status(-500)
-            val REQUIRED_REFRESH_TOKEN = Status(-1000)
+            val REQUIRED_REFRESH_TOKEN = Status(1000)
         }
     }
 }
