@@ -1,7 +1,7 @@
 package team.belloo.hamoney.domain.spending
 
 import team.belloo.hamoney.UseCase
-import team.belloo.hamoney.domain.Spending
+import team.belloo.hamoney.core.spending.Spending
 import team.belloo.hamoney.entity.SpendingEntity
 import team.belloo.hamoney.persistence.SpendingRepository
 
@@ -12,12 +12,12 @@ class SaveSpending(
     operator fun invoke(spending: Spending) {
         SpendingEntity().apply {
             this.accountBookId = spending.accountBookId
-            this.amount = spending.amount
-            this.date = spending.date
+            this.amount = spending.amount.value
+            this.date = spending.date.format()
             this.categoryId = spending.categoryId
             this.subCategoryId = spending.subCategoryId
-            this.payId = spending.pay.id
-            this.used = spending.used
+            this.payId = spending.payId
+            this.repeatPeriod = spending.repeatPeriod?.value
             this.skipSum = spending.skipSum
         }.also {
             spendingRepository.save(it)
