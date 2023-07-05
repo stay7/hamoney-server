@@ -13,7 +13,8 @@ sealed class Spending(
     open val payId: Long,
     open val repeatPeriod: SpendingRepeat?,
     open val skipSum: Boolean,
-    open val createdBy: Long
+    open val createdBy: Long,
+    open val memo: String?
 ) {
     data class Normal(
         override val id: Long = 0,
@@ -24,7 +25,8 @@ sealed class Spending(
         override val subCategoryId: Long,
         override val payId: Long,
         override val skipSum: Boolean,
-        override val createdBy: Long
+        override val createdBy: Long,
+        override val memo: String?
     ) : Spending(
         id = id,
         accountBookId = accountBookId,
@@ -34,7 +36,8 @@ sealed class Spending(
         subCategoryId = subCategoryId,
         payId = payId, repeatPeriod = null,
         skipSum = skipSum,
-        createdBy = createdBy
+        createdBy = createdBy,
+        memo = memo
     )
 
     data class Repeat(
@@ -47,7 +50,8 @@ sealed class Spending(
         override val payId: Long,
         override val repeatPeriod: SpendingRepeat,
         override val skipSum: Boolean,
-        override val createdBy: Long
+        override val createdBy: Long,
+        override val memo: String?
     ) : Spending(
         id = id,
         accountBookId = accountBookId,
@@ -58,6 +62,7 @@ sealed class Spending(
         payId = payId,
         repeatPeriod = repeatPeriod,
         skipSum = skipSum,
-        createdBy = createdBy
+        createdBy = createdBy,
+        memo = memo
     )
 }

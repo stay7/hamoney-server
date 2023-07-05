@@ -33,6 +33,9 @@ data class SpendingEntity(
     @Column(nullable = true)
     var payId: Long = 0,
 
+    @Column(nullable = true, columnDefinition = "TEXT")
+    var memo: String? = null,
+
     @Column(nullable = true)
     var repeatPeriod: String? = null,
 

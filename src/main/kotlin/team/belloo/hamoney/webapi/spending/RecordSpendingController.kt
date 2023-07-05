@@ -36,7 +36,8 @@ class RecordSpendingController(
                 subCategoryId = form.subCategoryId,
                 payId = form.paymentId,
                 skipSum = form.skipSum,
-                createdBy = user.id
+                createdBy = user.id,
+                memo = form.memo
             )
 
             else -> Spending.Repeat(
@@ -48,7 +49,8 @@ class RecordSpendingController(
                 payId = form.paymentId,
                 repeatPeriod = SpendingRepeat.of(form.repeatPeriod),
                 skipSum = form.skipSum,
-                createdBy = user.id
+                createdBy = user.id,
+                memo = form.memo
             )
         }.also {
             saveSpending(it)
@@ -57,7 +59,6 @@ class RecordSpendingController(
         return JsonResult.success()
     }
 
-    // 반복 지출 여부가 필요할 것 같음
     data class RecordSpendingForm(
         val accountBookId: Long,
         val categoryId: Long,

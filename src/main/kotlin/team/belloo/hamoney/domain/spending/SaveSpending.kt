@@ -18,7 +18,9 @@ class SaveSpending(
             this.subCategoryId = spending.subCategoryId
             this.payId = spending.payId
             this.repeatPeriod = spending.repeatPeriod?.value
+            this.createdBy = spending.createdBy
             this.skipSum = spending.skipSum
+            this.memo = spending.memo
         }.also {
             spendingRepository.save(it)
         }
